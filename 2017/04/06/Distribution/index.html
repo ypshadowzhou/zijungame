@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Configuring Your Xcode Project for Distribution | Any Translate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="You can edit your project settings anytime, but some settings are necessary during development. Others are recommended when you distribute your app for beta testing and required when you submit your a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Configuring Your Xcode Project for Distribution">
+<meta property="og:url" content="http://yoursite.com/2017/04/06/Distribution/index.html">
+<meta property="og:site_name" content="Any Translate">
+<meta property="og:description" content="You can edit your project settings anytime, but some settings are necessary during development. Others are recommended when you distribute your app for beta testing and required when you submit your a">
+<meta property="og:image" content="http://yoursite.com/images/3_xcodeassistant_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_project_navigator_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_ios_app_target_pane_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/bundleid_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_ios_app_target_pane_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_ios_info_bundle_id_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_assignteam_ios_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_selectdistributionmethod_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_tb_noprovisioningprofile_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_tb_team_profile_created_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_selectdistributionmethod_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_tb_team_profile_created_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_deployment_info_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_deployment_target_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_target_devices_setting_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_app_icon_arrow_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_add_app_icon_to_asset_catalog_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_create_launch_screen_file_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_take_screenshot_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_use_asset_catalog_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_migrate_to_catalog_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/8_add_export_compliance_keys_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_copyright_key_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_edit_build_settings_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_base_sdk_2x.png">
+<meta property="og:image" content="http://yoursite.com/images/3_debug_info_format_2x.png">
+<meta property="og:updated_time" content="2017-04-06T08:03:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Configuring Your Xcode Project for Distribution">
+<meta name="twitter:description" content="You can edit your project settings anytime, but some settings are necessary during development. Others are recommended when you distribute your app for beta testing and required when you submit your a">
+<meta name="twitter:image" content="http://yoursite.com/images/3_xcodeassistant_2x.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Any Translate" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Any Translate</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Distribution" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/06/Distribution/" class="article-date">
+  <time datetime="2017-04-06T05:25:27.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Configuring Your Xcode Project for Distribution
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>You can edit your project settings anytime, but some settings are necessary during development. Others are recommended when you distribute your app for beta testing and required when you submit your app to store.</p>
+<p>During development, your app must be provisioned and code signed to use certain app services and run on a device. If you assign a bundle ID and team to your project, Xcode can create the necessary certificates, identifiers, and profiles for you in your developer account. You can enter this information now using the project editor or as needed when you add app services and launch your app.</p>
+<p>Before you distribute your app for testing or to the store, provide all the required information about your app. For example, set app icons to pass iTunes Connect validation tests.</p>
+<p>Before you upload your app to iTunes Connect, verify your build settings and set the copyright key for Mac apps.</p>
+<h3 id="Setting-Properties-When-Creating-Your-Xcode-Project"><a href="#Setting-Properties-When-Creating-Your-Xcode-Project" class="headerlink" title="Setting Properties When Creating Your Xcode Project"></a>Setting Properties When Creating Your Xcode Project</h3><p>An assistant guides you through the process of creating an Xcode project. First, you select a template for your project. Starting with the right template helps speed the development process. The assistant also prompts you to enter information about your app that’s used to determine your app’s capabilities and distribute it to customers. If you don’t have this information when you create the project, you can set these properties later. If you are a member of the Apple Developer Program, some of the data in the Xcode project is similar to the data you enter in iTunes Connect, but only the bundle ID needs to match the bundle ID you enter in iTunes Connect before you can upload your app to iTunes Connect.</p>
+<p>For iOS apps, a dialog similar to this appears when you create an Xcode project from a template:</p>
+<p><img src="/images/3_xcodeassistant_2x.png" alt="Setting Properties"></p>
+<p>The product name is the name of your app as it will appear to customers in the store and should be similar to the app name you enter later in iTunes Connect. Most importantly, a customer should instantly associate the app name and icon in the store with the product name and app icon that installs on their devices. The product name is also the name that will appear in Springboard when the app is installed. The product name can’t be longer than 255 bytes and can be no fewer than 2 characters. (Read Best Practices in iTunes Connect Developer Guide for guidelines on choosing an app name.)</p>
+<p>The organization name is an attribute of the Xcode project and is used in boilerplate text throughout your project folder. For example, the organization name is used in the source and header file copyright strings. The organization name in your Xcode project isn’t the same as the organization name that you enter later in iTunes Connect.</p>
+<p>The product name and organization identifier you enter are concatenated to create the default bundle ID using reverse domain name service (reverse DNS) notation. The bundle ID needs to be unique to your app, so it’s important to set the organization identifier to a unique string as well.</p>
+<p>For iOS apps, you can choose the types of devices you support from the Devices pop-up menu. For Mac apps, you can choose the Mac App Store categories from a pop-up menu.</p>
+<p>The other values used by the Xcode template are sufficient for building and running your app locally, but later you’ll need to finalize properties, such as the bundle ID. Also, the assistant doesn’t set all required properties for the store. You complete the basic store configuration before you submit. Ideally, you’ll complete this configuration before you distribute your app for testing too.</p>
+<p>After your app is released, you can’t change some of this metadata, so it’s important to choose your settings carefully. To learn which app states cause some properties to be locked in iTunes Connect, refer to iTunes Connect App Properties in iTunes Connect Developer Guide.</p>
+<h3 id="Before-You-Begin-Configuring-Your-Project"><a href="#Before-You-Begin-Configuring-Your-Project" class="headerlink" title="Before You Begin Configuring Your Project"></a>Before You Begin Configuring Your Project</h3><p>All of the options discussed in this chapter are located in the General pane in the project editor for your target. To open the project navigator, choose View &gt; Navigators &gt; Show Project Navigator. Choose the target from the Project/Targets pop-up menu or in the Targets section of the second sidebar if it appears. Click General to view settings discussed in this chapter.</p>
+<p>The screenshot below shows the General pane for an iOS app.<br><img src="/images/3_project_navigator_2x.png" alt="General pane"></p>
+<h3 id="Configuring-Identity-and-Team-Settings"><a href="#Configuring-Identity-and-Team-Settings" class="headerlink" title="Configuring Identity and Team Settings"></a>Configuring Identity and Team Settings</h3><p>For Xcode to create the team provisioning profile, the app’s bundle ID needs to be unique and the project assigned to a team. Later, you provide other information that identifies this version of your app. The identity settings appear in the Identity section of the target’s General pane. For iOS apps, the Identity section appears as shown here:<br><img src="/images/3_ios_app_target_pane_2x.png" alt="iOS App target pane"></p>
+<h3 id="About-Bundle-IDs"><a href="#About-Bundle-IDs" class="headerlink" title="About Bundle IDs"></a>About Bundle IDs</h3><p>A bundle ID precisely identifies a single app. A bundle ID is used during the development process to provision devices and by the operating system when the app is distributed to customers. For example, Game Center and In-App Purchase use a bundle ID to identify your app when using these app services. The preferences system uses this string to identify the app for which a given preference applies. Similarly, Launch Services uses the bundle ID to locate an app capable of opening a particular file, using the first app it finds with the given identifier. The bundle ID is also used to validate an app’s signature.</p>
+<p>The bundle ID string must be a uniform type identifier (UTI) that contains only alphanumeric characters (A-Z,a-z,0-9), hyphen (-), and period (.). The string should be in reverse-DNS format. For example, if your organization’s domain is Acme.com and you create an app named Hello, you could assign the string com.Acme.Hello as your app’s bundle ID.</p>
+<p>During the development process, you use an app’s bundle ID in many different places to identify the app.</p>
+<p><img src="/images/bundleid_2x.png" alt="iOS App bundle ID"></p>
+<h3 id="Specifically-the-bundle-ID-is-located-and-used-as-follows"><a href="#Specifically-the-bundle-ID-is-located-and-used-as-follows" class="headerlink" title="Specifically, the bundle ID is located and used as follows:"></a>Specifically, the bundle ID is located and used as follows:</h3><p>In the Xcode project, the bundle ID is stored in the information property list file (Info.plist). This file is later copied into your app’s bundle when you build the project.<br>In iTunes Connect, you enter the bundle ID to identify your app. After your first build is uploaded to iTunes Connect, you can’t change your bundle ID or delete the associated explicit App ID.<br>In your developer account, Xcode creates an App ID that matches the app’s bundle ID. If the App ID is an explicit App ID, it exactly matches the bundle ID. However, unlike domain names, bundle IDs are case sensitive. If the App ID is lowercase, your bundle ID needs to be lowercase, too.<br>In iCloud, the container IDs you specify in your Xcode project are based on the bundle IDs of one or more apps.<br>Note: A Mac app can’t share the same bundle ID with other types of apps, such as iOS and tvOS apps.<br>Setting the Bundle ID<br>The default bundle ID in your Xcode project is a string formatted as a reverse-domain—for example, com.MyCompany.MyProductName. To create the default bundle ID, Xcode concatenates the organization identifier with the product name you entered when creating the project from a template, as described in Setting Properties When Creating Your Xcode Project. (Xcode replaces spaces in the product name to create the default bundle ID.) It may be sufficient to replace the organization identifier prefix in the bundle ID, or you can replace the entire bundle ID. For example, change the organization identifier prefix to match your organization domain name, or replace the entire bundle ID to match an explicit App ID.</p>
+<p>For tvOS apps that share the iTunes Connect app record of an iOS app (described in Creating a Universal Purchase (iOS, tvOS)), the tvOS app must have the same bundle ID as the iOS app.</p>
+<p>For watchOS apps, the embedded WatchKit app and WatchKit extension targets must have the same bundle ID prefix as the iOS target. The WatchKit app target must have the format [Bundle ID].watchkitapp and the WatchKit extension target must have the format [Bundle ID].watchkitextension. If you change the iOS app’s bundle ID, you must change the WatchKit app and WatchKit extension target’s bundle ID to match.</p>
+<p>For Mac apps, ensure that every bundle ID is unique within your app bundle. For example, if your app bundle includes a helper app, make sure that its bundle ID is different from your app’s bundle ID.</p>
+<p>Follow these steps to change the bundle ID prefix in the General pane in the project editor.</p>
+<h3 id="To-set-the-bundle-ID-prefix"><a href="#To-set-the-bundle-ID-prefix" class="headerlink" title="To set the bundle ID prefix"></a>To set the bundle ID prefix</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br><img src="/images/3_ios_app_target_pane_2x.png" alt="Triangle"></p>
+<p>Enter the bundle ID prefix in the Bundle Identifier field.<br>Alternatively, follow these steps to change the entire bundle ID in the Info pane in the project editor.</p>
+<h3 id="To-set-the-bundle-ID"><a href="#To-set-the-bundle-ID" class="headerlink" title="To set the bundle ID"></a>To set the bundle ID</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click Info.<br>Enter the bundle ID in the Value column of the “Bundle identifier” row.<br><img src="/images/3_ios_info_bundle_id_2x.png" alt="Bundle identifier"></p>
+<h3 id="Assigning-the-Xcode-Project-to-a-Team"><a href="#Assigning-the-Xcode-Project-to-a-Team" class="headerlink" title="Assigning the Xcode Project to a Team"></a>Assigning the Xcode Project to a Team</h3><p>Each Xcode project is associated with a single team. If you enroll as an individual, you’re considered a one-person team. The developer account is used to store the certificates, identifiers, and profiles needed to provision your app. All apps need to be code signed and provisioned to run on a device and use certain app services. Xcode creates these assets for you when needed, but you can avoid warnings and dialogs later if you set the team now.</p>
+<h3 id="To-assign-the-project-to-a-team"><a href="#To-assign-the-project-to-a-team" class="headerlink" title="To assign the project to a team"></a>To assign the project to a team</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Choose your team from the Team pop-up menu.<br>If you’re an individual, choose your name from the pop-up menu.<br>If you’re an organization, choose your organization name from the pop-up menu.<br><img src="/images/3_assignteam_ios_2x.png" alt="Organization"></p>
+<p>Xcode may attempt to create a team provisioning profile. For iOS, tvOS, and watchOS apps, Xcode creates a team provisioning profile if you have a device connected to your Mac or have previously registered a device. For Mac apps, Xcode registers your development Mac. To resolve issues related to the team provisioning profile, read Creating the Team Provisioning Profile.<br>If a team doesn’t appear in the Team pop-up menu, choose “Add an Account” and follow the steps described in Adding Your Apple ID Account in Xcode.<br>Choosing a Signing Identity (Mac)<br>You have the choice of submitting your Mac app to the store, signing it with a Developer ID certificate to distribute it outside of the store, signing it using an Apple ID that doesn’t belong to the Apple Developer Program, or not code signing it at all. If you select Mac App Store, you assign your Xcode project to a team and can enable app services, as described in Adding Capabilities. If you select Developer ID or Apple ID, the available capabilities are limited. If you select None, the Team pop-up menu is disabled and you don’t need to read this guide.</p>
+<h3 id="To-select-a-signing-identity"><a href="#To-select-a-signing-identity" class="headerlink" title="To select a signing identity"></a>To select a signing identity</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Select the type of signing identity you want to use.<br>The options change depending on the Apple ID you choose from the Team pop-up menu.</p>
+<p>If you want to submit your app to the store, choose the Apple ID that is a member of the Apple Developer Program from the Team pop-up menu, and select Mac App Store.<br>If you want to distribute your Mac app outside of the store, choose the Apple ID that is a member of the Apple Developer Program from the Team pop-up menu, and select Developer ID.<br>If you want to use an Apple ID that is not a member of the Apple Developer Program, choose the Apple ID from the Team pop-up menu, and select Apple ID.<br>If you don’t want to sign your app or use app services, select None.<br>The capabilities available to your app depends on the signing identity you choose, described in Supported Capabilities.<br><img src="/images/3_selectdistributionmethod_2x.png" alt="Select distribution method"></p>
+<h3 id="Read-Distributing-Apps-Outside-the-Mac-App-Store-for-other-steps-to-create-a-Developer-ID-signed-app"><a href="#Read-Distributing-Apps-Outside-the-Mac-App-Store-for-other-steps-to-create-a-Developer-ID-signed-app" class="headerlink" title="Read Distributing Apps Outside the Mac App Store for other steps to create a Developer ID-signed app."></a>Read Distributing Apps Outside the Mac App Store for other steps to create a Developer ID-signed app.</h3><h3 id="Creating-the-Team-Provisioning-Profile"><a href="#Creating-the-Team-Provisioning-Profile" class="headerlink" title="Creating the Team Provisioning Profile"></a>Creating the Team Provisioning Profile</h3><p>After you select a team, Xcode attempts to create a specialized development provisioning profile called a team provisioning profile that it manages for you. A team provisioning profile allows an app to be signed and run by all team members on all their devices. If Xcode fails to create the team provisioning profile, a warning and Fix Issue button appear below the Team pop-up menu.<br><img src="/images/3_tb_noprovisioningprofile_2x.png" alt="No Provisioning Profile"></p>
+<p>You can assist Xcode and avoid common problems by creating the team provisioning profile now. In most cases, you can just click Fix Issue below the warning message and Xcode performs these steps for you:</p>
+<h3 id="Creates-your-development-certificate"><a href="#Creates-your-development-certificate" class="headerlink" title="Creates your development certificate"></a>Creates your development certificate</h3><p>Xcode creates the development certificate for the team you selected from the Team pop-up menu.</p>
+<p>Registers the device chosen in the Scheme toolbar menu or your Mac<br>Xcode requires one or more registered devices in your account before it can create a team provisioning profile. For Mac apps, Xcode automatically registers the Mac that’s running Xcode. For iOS and tvOS apps, connect a device you want to use for development. For watchOS apps, connect an iPhone that is paired with an Apple Watch. If the device matches the deployment target, Xcode registers the device for you. If the device isn’t eligible because it doesn’t match the deployment target, upgrade the OS on the device or change the deployment target, as described in Setting Deployment Info.</p>
+<p>Creates an App ID that matches your app’s bundle ID and enables app services<br>Depending on your project’s configuration, Xcode may create either a wildcard App ID or an explicit App ID. Because Xcode uses the bundle ID to register an explicit App ID, the bundle ID also needs to be unique during development. To avoid an App ID registration error, enter a unique bundle ID, as described in Setting the Bundle ID.</p>
+<h3 id="Creates-a-team-provisioning-profile-containing-these-assets"><a href="#Creates-a-team-provisioning-profile-containing-these-assets" class="headerlink" title="Creates a team provisioning profile containing these assets"></a>Creates a team provisioning profile containing these assets</h3><p>Sets your project’s code signing build settings accordingly<br>After Xcode performs these steps, the warning message under the Team pop-up menu disappears.<br><img src="/images/3_tb_team_profile_created_2x.png" alt="Team Provisioning Profile"></p>
+<p>If dialogs or warnings appear, use the information to correct the problem and click Fix Issue again. If a “Your account already has a valid … certificate” dialog appears, choose one of these actions.</p>
+<p>If you previously exported your signing identity, as described in Exporting and Importing Certificates and Profiles, click Import Developer Profile and follow the instructions.<br>If you don’t have a backup of your signing identity, click Reset.<br>Xcode revokes your development certificate and recreates the signing identity for you.</p>
+<p>Setting the Application Category (Mac)<br>Set the category under which your Mac app will be listed on the Mac App Store. The category you select should match the category you later select in your iTunes Connect app record.</p>
+<h3 id="To-set-the-application-category"><a href="#To-set-the-application-category" class="headerlink" title="To set the application category"></a>To set the application category</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Choose the category from the Application Category pop-up menu.<br><img src="/images/3_selectdistributionmethod_2x.png" alt="Choose the Category"></p>
+<p>iOS, tvOS, and watchOS app categories are set in iTunes Connect only. For more details on app categories, read Best Practices in iTunes Connect Developer Guide.</p>
+<p>Setting the Version Number and Build String<br>It’s important to initial set, and later update, the version number and build string before uploading your app to iTunes Connect because these numbers are used by the store to identify the build.</p>
+<p>The version number is a two-period-separated list of positive integers, as in 4.5.2. The first integer represents a major revision, the second a minor revision, and the third a maintenance release. The version number is shown in the store and that version should match the version number you enter later in iTunes Connect. For details on possible values, see CFBundleShortVersionString in Information Property List Key Reference.</p>
+<p>The build string represents an iteration (released or unreleased) of the bundle and is also a two-period-separated list of positive integers, as in 1.2.3. For Mac apps, the user can click the version number in the About window to toggle between the version number and the build string. For details on possible values, see CFBundleVersion in Information Property List Key Reference.</p>
+<p>Important: Update the version number when you create a new app version in iTunes Connect. Update the build string before you upload a new build of your app to iTunes Connect. The number represented by the build string should be incremented. For iOS apps, iTunes will recognize that the build string changed and properly sync the new app version to the device. The version number and build string are also used to identify crash reports and .dSYM files for apps distributed through TestFlight or the store.<br>Set the version number and build string in the General pane in the project editor.</p>
+<h3 id="To-set-the-version-number-and-build-string"><a href="#To-set-the-version-number-and-build-string" class="headerlink" title="To set the version number and build string"></a>To set the version number and build string</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Important: For watchOS apps, the embedded WatchKit app and WatchKit extension must have the same version number and build string as the enclosing iOS app.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Enter the version number in the Version field, and enter the build string in the Build field.<br><img src="/images/3_tb_team_profile_created_2x.png" alt="Team Profile"></p>
+<h3 id="Setting-Deployment-Info"><a href="#Setting-Deployment-Info" class="headerlink" title="Setting Deployment Info"></a>Setting Deployment Info</h3><p>The default deployment settings are sufficient for development, but it’s best to review these settings before you distribute your app. Some settings must match values you enter in iTunes Connect later. For iOS apps, the deployment settings appear as shown here:<br><img src="/images/3_deployment_info_2x.png" alt="Deployment"></p>
+<p>Setting the Deployment Target<br>The deployment target setting specifies the lowest operating system version that your app can run on. For example, the lowest available setting for iPad apps is iOS 4.3.</p>
+<p>There are several strategies for choosing the deployment target when developing your app. Each version of an OS includes features and capabilities not present in earlier versions. As new versions are published, some users may upgrade immediately, while other users may wait before moving to the latest version. You can target the latest version, taking full advantage of all the new features but limiting the app to only users running the latest version. Or you can target an earlier version, making your app available to more users but limiting the features you can use in the app. Another approach is to target an earlier version but use weak linking to determine at runtime whether later version features are available before using them.</p>
+<p>For details on weak linking, read Weak Linking and Apple Frameworks in SDK Compatibility Guide.</p>
+<h3 id="To-set-the-target-version"><a href="#To-set-the-target-version" class="headerlink" title="To set the target version"></a>To set the target version</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Deployment Info to reveal the settings.<br>Choose the version you want to target from the Deployment Target pop-up menu.<br><img src="/images/3_deployment_target_2x.png" alt="Deployment"></p>
+<p>Xcode sets the Minimum System Version key in the app’s information property list to the deployment target you choose. When you publish your app to the store, it uses this property value to indicate which versions your app supports.</p>
+<p>Note: The SDK version, not the deployment target, determines which features you can use in an app. If the SDK you’re using to build the app is more recent than the app’s deployment target, Xcode displays build warnings when it detects that your app is using a feature that’s unavailable in the deployment target.<br>Ensure that the symbols you use are available in the app’s runtime environment. To check for their availability, use the techniques described in SDK Compatibility Guide.<br>Setting the Target Devices (iOS, watchOS)<br>The Devices setting identifies the type of devices you want an app to run on. There are two device types: iPhone and iPad. The iPhone type includes iPhone and iPod touch devices. The iPad type includes all iPad and iPad mini devices.</p>
+<h3 id="To-set-the-target-devices"><a href="#To-set-the-target-devices" class="headerlink" title="To set the target devices"></a>To set the target devices</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Deployment Info to reveal the settings.<br>From the Devices pop-up menu, choose iPhone, iPad, or Universal (to target both families).<br><img src="/images/3_target_devices_setting_2x.png" alt="Target Devices Settings"></p>
+<p>For more information on configuring your app for iPhone, iPad, or both device families, see Advanced App Tricks in App Programming Guide for iOS.</p>
+<h3 id="Adding-App-Icons-and-a-Launch-Screen-File"><a href="#Adding-App-Icons-and-a-Launch-Screen-File" class="headerlink" title="Adding App Icons and a Launch Screen File"></a>Adding App Icons and a Launch Screen File</h3><p>App icons and the launch screen file are stored in the app bundle, not uploaded as separate assets to iTunes Connect. The operating system uses these images and the launch screen file (a .xib file) in various locations on a device to represent your app. In general, artwork displayed by the operating system resides in the bundle, and artwork displayed by iTunes or the store is uploaded to iTunes Connect. Your app needs an app icon to represent it and pass validation tests.</p>
+<p>You use an asset catalog that manages the app icons for you or maintain individual image files yourself. If you create a new project, asset catalogs are used by default to store app icons and a launch screen file is used as a splash screen. For iOS 7 deployment targets, you can supply both a launch screen file and launch images. In iOS 8, the launch screen file is used, and in iOS 7, the launch images are used. If you have an older project, you can migrate from managing individual icon image files to an asset catalog. You can also add a launch screen file to an older Xcode project.</p>
+<p>If you prefer to manage your assets as individual image files, read Setting Individual App Icon and Launch Image Files. If you want to migrate to an asset catalog, read Migrating Your Images to an Asset Catalog. To learn more about creating and managing asset catalogs, go to Xcode Help.</p>
+<p>Preparing Your Artwork<br>For all artwork, keep the file size as small as possible for a positive purchase experience for your users.</p>
+<p>For iOS apps, see Icon and Image Sizes in iOS Human Interface Guidelines for the sizes of all required app icons, launch images, and other icons.</p>
+<p>For iOS and tvOS apps, a launch image matching the device resolution appears as soon as the user taps your app icon. Use screenshots to create your app’s launch images. To take advantage of Retina displays, provide high-resolution images for each device you support. For guidance on creating launch images, read Launch Images.</p>
+<p>For the required Mac app icons, see Creating Great Icons for Any Resolution in macOS Human Interface Guidelines. This table includes icon sizes that may be used on the Mac App Store. To create your app icon files, read Provide High-Resolution Versions of All App Graphics Resources in High Resolution Guidelines for OS X.</p>
+<p>For the specification of screenshots and other artwork that you upload later using iTunes Connect, read iTunes Connect App Properties in iTunes Connect Developer Guide.</p>
+<p>Adding App Icons to an Asset Catalog<br>Versions of your app icons are organized into image sets in an asset catalog. Xcode automatically creates image sets for the app’s target device—for example, both iPhone and iPad image sets appear if your iOS app’s target is universal.</p>
+<p>To add an app icon to an asset catalog</p>
+<p>In the project navigator, select the project and your target to display the project editor.<br>In the “App Icons and Launch Images” section of the General pane, click the arrow button to the right of the App Icons Source pop-up menu.<br><img src="/images/3_app_icon_arrow_2x.png" alt="App Icons"></p>
+<p>In the Finder, drag an app icon to the image well that matches its resolution in the project navigator.<br><img src="/images/3_add_app_icon_to_asset_catalog_2x.png" alt="App Icons Asset Catelog"></p>
+<h3 id="Creating-a-Launch-Screen-File"><a href="#Creating-a-Launch-Screen-File" class="headerlink" title="Creating a Launch Screen File"></a>Creating a Launch Screen File</h3><p>The launch screen file is displayed as a splash screen while your app is launching. It’s a single, atomic .xib file that uses size classes to support different device resolutions. It contains basic UIKit views, such as UIImageView and UILabel objects, and uses Auto Layout constraints. Xcode adds a default launch screen file, called LaunchScreen.xib, to your project.</p>
+<p>Follow these guidelines when creating a launch screen file:</p>
+<p>Use only UIKit classes.<br>Use a single root view that is a UIView or UIViewController object.<br>Don’t make any connections to your code (don’t add actions or outlets).<br>Don’t add UIWebView objects.<br>Don’t use any custom classes.<br>Don’t use runtime attributes.<br>You can add a launch screen file to an older Xcode project.</p>
+<h3 id="To-create-a-launch-screen-file-for-an-existing-project"><a href="#To-create-a-launch-screen-file-for-an-existing-project" class="headerlink" title="To create a launch screen file for an existing project"></a>To create a launch screen file for an existing project</h3><p>Choose File &gt; New &gt; File.<br>Under iOS, select User Interface.<br>Click Launch Screen and click Next.<br><img src="/images/3_create_launch_screen_file_2x.png" alt="Launch Screen File"></p>
+<p>Enter a filename in the Save As text field, and click Create.<br>To set the launch screen file</p>
+<p>If necessary, open the “App Icons and Launch Images” section of the General pane.<br>From the Launch Screen File pop-up menu, choose a launch screen file.<br>Adding Launch Images and Capturing Screenshots<br>Follow these steps to capture a screenshot of your app while your device is connected to your Mac. Although the screenshot of an iOS app includes the status bar as it looks when the screenshot is captured, iOS replaces it with the current status bar when your app launches.</p>
+<p>To capture a screenshot of your app running on a device</p>
+<p>Connect the device to your Mac.<br>Choose Window &gt; Devices, and select the device under Devices.<br>In the Device Information section, click Take Screenshot.<br><img src="/images/3_take_screenshot_2x.png" alt="Choose Window Devices"></p>
+<p>The screenshot appears on your desktop.<br>Note: For iOS 7 deployment targets, add an asset catalog for launch images, described in Migrating Your Images to an Asset Catalog. Capture screenshots to create the launch images and add them to the asset catalog, similar to adding app icons to an asset catalog, described in Adding App Icons to an Asset Catalog.<br>Setting Individual App Icon and Launch Image Files<br>If you don’t want to use an asset catalog, choose “Don’t use asset catalogs” from either the App Icons Source or Launch Images Source pop-up menu in the “App Icons and Launch Images” section of the General pane. If a Use Asset Catalog button appears, you are not using an asset catalog.</p>
+<p>Migrating Your Images to an Asset Catalog<br>If you have an older project, you can migrate your image files to an asset catalog that manages your app icons and launch images for you. Xcode moves the image files from the tables to the new asset catalog. You create a separate asset catalog for app icons and launch images, but the steps are identical.</p>
+<h3 id="To-migrate-to-an-asset-catalog"><a href="#To-migrate-to-an-asset-catalog" class="headerlink" title="To migrate to an asset catalog"></a>To migrate to an asset catalog</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to “App Icons and Launch Images.”<br>Click the Use Asset Catalog button next to either App Icons Source or Launch Images Source.<br><img src="/images/3_use_asset_catalog_2x.png" alt="App Icons and Launch Images"></p>
+<p>In the dialog that appears, choose either Assets or New Asset Catalog from the pop-up menu, and click Migrate.<br><img src="/images/3_migrate_to_catalog_2x.png" alt="Migrate"></p>
+<p>To view the asset catalog, click the arrow button to the right of the App Icons Source or Launch Images Source pop-up menu.</p>
+<p>Adding Export Compliance Information to Your Project (Optional)</p>
+<p>You can optionally specify export compliance information for each build that you upload to iTunes Connect. If your app uses encryption and requires export compliance documentation, you upload the document and submit it for review using iTunes Connect, as described in Cryptography and U.S. Export Compliance in iTunes Connect Developer Guide. Once the document is approved, iTunes Connects will provide key-value pairs that you can add to the Info.plist file in your Xcode project. If you provide the export compliance information in the build, then you don’t need to provide this information later when you distribute your app using TestFlight or submit it to App Review.</p>
+<p>To add the export compliance keys to your Xcode project</p>
+<p>In the Project window, choose the target from the Project/Targets pop-up menu or in the Targets section of the second sidebar if it appears.<br>Click Info.<br>In the last row of the target properties table, click the Add button (+).<br>In the search field, enter the export compliance key followed by the Return character and set its value.<br>If your app is not using encryption, add the App Uses Non-Exempt Encryption key and set the value to NO.<br>If your app uses encryption, add the App Uses Non-Exempt Encryption key and set the value to YES.<br>If your app requires export compliance, add the App Encryption Export Compliance Code key and enter the value for this key provided by iTunes Connect.<br><img src="/images/8_add_export_compliance_keys_2x.png" alt="iTunes Connect"></p>
+<p>Note: In Xcode 7.2 and earlier, enter both the keys and values manually.<br>Setting the Copyright Key (Mac)</p>
+<p>Make sure that your information property list file contains a valid value for the Copyright key. For details on possible values, see NSHumanReadableCopyright in Information Property List Key Reference.</p>
+<p>To edit the copyright key in the information property list</p>
+<p>In Xcode, select the project in the project navigator.<br>Click the disclosure triangle next to the ProjectName folder to reveal its contents.<br>Click the disclosure triangle next to the Supporting Files subfolder to reveal its contents.<br>Select the ProjectName-Info.plist file.<br>The information property list is displayed to the right in a property list editor.<br><img src="/images/3_copyright_key_2x.png" alt="Copy Right"></p>
+<p>Double-click in the Value column and in the row of the Copyright key.<br>Enter a new value for the key.<br>For how to edit other cells in a property list, go to Xcode Help.</p>
+<h3 id="Verifying-Your-Build-Settings"><a href="#Verifying-Your-Build-Settings" class="headerlink" title="Verifying Your Build Settings"></a>Verifying Your Build Settings</h3><p>If you changed the default build settings, verify some of the settings before submitting your app to the store. You do this in the Build Settings pane of the project editor.</p>
+<p>To edit a build setting</p>
+<p>In the project editor, select the project or target whose build setting you want to edit.<br>At the top of the project editor, click Build Settings.<br><img src="/images/3_edit_build_settings_2x.png" alt="Build Settings"></p>
+<p>Locate the build setting in the left column, or enter the name of the build setting in the search field in the upper-right corner.<br>If some build settings don’t appear, click All.<br>Set the value for the build setting in the right column.<br>Setting Architectures for iOS Apps<br>The Architectures build setting identifies the architectures for which your app is built. An iOS device uses a set of architectures, which include armv7 and arm64. You have two options for specifying the value of this setting:</p>
+<p>Standard. Produces an app binary with a common architecture, compatible with all supported devices. This option generates the smallest app, but it may not be optimized to run at the best possible speed for all devices.<br>Other. Produces an app binary for a specified set of architectures.<br>If you select Other from the Architectures build-setting value list, click the Add button (+) to enter the custom device architecture names you support.</p>
+<p>Important: The store rejects a build that supports only armv7s. If armv7s is included in the Valid Architectures list, armv7 must also be included.</p>
+<h3 id="Setting-the-Base-SDK"><a href="#Setting-the-Base-SDK" class="headerlink" title="Setting the Base SDK"></a>Setting the Base SDK</h3><p>The Base SDK version number must be greater than or equal to the software version number on your development device; otherwise, Xcode can’t initiate a debugging session with the device. Set the Base SDK for your project and targets to the latest operating system, which is the default value. The Base SDK property is located in the Architectures area in the Build Settings pane. For iOS apps, set Base SDK to Latest iOS. For Mac apps, set Base SDK to Latest OS X. If you select another value, download and install the latest SDK version that’s greater than or equal to your device software version.</p>
+<p>To go to the Architectures area, select the project or target and click Build Settings. The Architectures area appears first in the Build Settings pane.<br><img src="/images/3_base_sdk_2x.png" alt="Architectures"></p>
+<h3 id="Setting-the-Debug-Information-Format"><a href="#Setting-the-Debug-Information-Format" class="headerlink" title="Setting the Debug Information Format"></a>Setting the Debug Information Format</h3><p>Set the Debug Information Format build setting to “DWARF with dSYM File.” This is required to symbolicate crash reports, as described in Analyzing Crash Reports.<br><img src="/images/3_debug_info_format_2x.png" alt="Debug Information"></p>
+<p>Recap</p>
+<p>In this chapter, you learned how to configure your Xcode project from a template, set the app’s identity information, and create a team provisioning profile for development. During development, refer to this chapter as needed. Later, use this chapter as a checklist for the settings that are required by the store.</p>
+<p><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/ConfiguringYourApp/ConfiguringYourApp.html#//apple_ref/doc/uid/TP40012582-CH28-SW1" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/ConfiguringYourApp/ConfiguringYourApp.html#//apple_ref/doc/uid/TP40012582-CH28-SW1</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/06/Distribution/" data-id="cj1662wug0003hj29ous9lvyw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/06/Identifiers+Devices+Profiles/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Maintaining Identifiers, Devices, and Profiles</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/06/Distribution/">Configuring Your Xcode Project for Distribution</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/06/Identifiers+Devices+Profiles/">Maintaining Identifiers, Devices, and Profiles</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/24/CaptuvoSDK/">CaptuvoSDK</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/24/HybridWeb5/">HybridWeb5</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/24/Translate-Keyboard/">Translate-Keyboard</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Shadow Zhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

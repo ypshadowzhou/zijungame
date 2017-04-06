@@ -61,6 +61,538 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Distribution" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/06/Distribution/" class="article-date">
+  <time datetime="2017-04-06T05:25:27.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/Distribution/">Configuring Your Xcode Project for Distribution</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>You can edit your project settings anytime, but some settings are necessary during development. Others are recommended when you distribute your app for beta testing and required when you submit your app to store.</p>
+<p>During development, your app must be provisioned and code signed to use certain app services and run on a device. If you assign a bundle ID and team to your project, Xcode can create the necessary certificates, identifiers, and profiles for you in your developer account. You can enter this information now using the project editor or as needed when you add app services and launch your app.</p>
+<p>Before you distribute your app for testing or to the store, provide all the required information about your app. For example, set app icons to pass iTunes Connect validation tests.</p>
+<p>Before you upload your app to iTunes Connect, verify your build settings and set the copyright key for Mac apps.</p>
+<h3 id="Setting-Properties-When-Creating-Your-Xcode-Project"><a href="#Setting-Properties-When-Creating-Your-Xcode-Project" class="headerlink" title="Setting Properties When Creating Your Xcode Project"></a>Setting Properties When Creating Your Xcode Project</h3><p>An assistant guides you through the process of creating an Xcode project. First, you select a template for your project. Starting with the right template helps speed the development process. The assistant also prompts you to enter information about your app that’s used to determine your app’s capabilities and distribute it to customers. If you don’t have this information when you create the project, you can set these properties later. If you are a member of the Apple Developer Program, some of the data in the Xcode project is similar to the data you enter in iTunes Connect, but only the bundle ID needs to match the bundle ID you enter in iTunes Connect before you can upload your app to iTunes Connect.</p>
+<p>For iOS apps, a dialog similar to this appears when you create an Xcode project from a template:</p>
+<p><img src="/images/3_xcodeassistant_2x.png" alt="Setting Properties"></p>
+<p>The product name is the name of your app as it will appear to customers in the store and should be similar to the app name you enter later in iTunes Connect. Most importantly, a customer should instantly associate the app name and icon in the store with the product name and app icon that installs on their devices. The product name is also the name that will appear in Springboard when the app is installed. The product name can’t be longer than 255 bytes and can be no fewer than 2 characters. (Read Best Practices in iTunes Connect Developer Guide for guidelines on choosing an app name.)</p>
+<p>The organization name is an attribute of the Xcode project and is used in boilerplate text throughout your project folder. For example, the organization name is used in the source and header file copyright strings. The organization name in your Xcode project isn’t the same as the organization name that you enter later in iTunes Connect.</p>
+<p>The product name and organization identifier you enter are concatenated to create the default bundle ID using reverse domain name service (reverse DNS) notation. The bundle ID needs to be unique to your app, so it’s important to set the organization identifier to a unique string as well.</p>
+<p>For iOS apps, you can choose the types of devices you support from the Devices pop-up menu. For Mac apps, you can choose the Mac App Store categories from a pop-up menu.</p>
+<p>The other values used by the Xcode template are sufficient for building and running your app locally, but later you’ll need to finalize properties, such as the bundle ID. Also, the assistant doesn’t set all required properties for the store. You complete the basic store configuration before you submit. Ideally, you’ll complete this configuration before you distribute your app for testing too.</p>
+<p>After your app is released, you can’t change some of this metadata, so it’s important to choose your settings carefully. To learn which app states cause some properties to be locked in iTunes Connect, refer to iTunes Connect App Properties in iTunes Connect Developer Guide.</p>
+<h3 id="Before-You-Begin-Configuring-Your-Project"><a href="#Before-You-Begin-Configuring-Your-Project" class="headerlink" title="Before You Begin Configuring Your Project"></a>Before You Begin Configuring Your Project</h3><p>All of the options discussed in this chapter are located in the General pane in the project editor for your target. To open the project navigator, choose View &gt; Navigators &gt; Show Project Navigator. Choose the target from the Project/Targets pop-up menu or in the Targets section of the second sidebar if it appears. Click General to view settings discussed in this chapter.</p>
+<p>The screenshot below shows the General pane for an iOS app.<br><img src="/images/3_project_navigator_2x.png" alt="General pane"></p>
+<h3 id="Configuring-Identity-and-Team-Settings"><a href="#Configuring-Identity-and-Team-Settings" class="headerlink" title="Configuring Identity and Team Settings"></a>Configuring Identity and Team Settings</h3><p>For Xcode to create the team provisioning profile, the app’s bundle ID needs to be unique and the project assigned to a team. Later, you provide other information that identifies this version of your app. The identity settings appear in the Identity section of the target’s General pane. For iOS apps, the Identity section appears as shown here:<br><img src="/images/3_ios_app_target_pane_2x.png" alt="iOS App target pane"></p>
+<h3 id="About-Bundle-IDs"><a href="#About-Bundle-IDs" class="headerlink" title="About Bundle IDs"></a>About Bundle IDs</h3><p>A bundle ID precisely identifies a single app. A bundle ID is used during the development process to provision devices and by the operating system when the app is distributed to customers. For example, Game Center and In-App Purchase use a bundle ID to identify your app when using these app services. The preferences system uses this string to identify the app for which a given preference applies. Similarly, Launch Services uses the bundle ID to locate an app capable of opening a particular file, using the first app it finds with the given identifier. The bundle ID is also used to validate an app’s signature.</p>
+<p>The bundle ID string must be a uniform type identifier (UTI) that contains only alphanumeric characters (A-Z,a-z,0-9), hyphen (-), and period (.). The string should be in reverse-DNS format. For example, if your organization’s domain is Acme.com and you create an app named Hello, you could assign the string com.Acme.Hello as your app’s bundle ID.</p>
+<p>During the development process, you use an app’s bundle ID in many different places to identify the app.</p>
+<p><img src="/images/bundleid_2x.png" alt="iOS App bundle ID"></p>
+<h3 id="Specifically-the-bundle-ID-is-located-and-used-as-follows"><a href="#Specifically-the-bundle-ID-is-located-and-used-as-follows" class="headerlink" title="Specifically, the bundle ID is located and used as follows:"></a>Specifically, the bundle ID is located and used as follows:</h3><p>In the Xcode project, the bundle ID is stored in the information property list file (Info.plist). This file is later copied into your app’s bundle when you build the project.<br>In iTunes Connect, you enter the bundle ID to identify your app. After your first build is uploaded to iTunes Connect, you can’t change your bundle ID or delete the associated explicit App ID.<br>In your developer account, Xcode creates an App ID that matches the app’s bundle ID. If the App ID is an explicit App ID, it exactly matches the bundle ID. However, unlike domain names, bundle IDs are case sensitive. If the App ID is lowercase, your bundle ID needs to be lowercase, too.<br>In iCloud, the container IDs you specify in your Xcode project are based on the bundle IDs of one or more apps.<br>Note: A Mac app can’t share the same bundle ID with other types of apps, such as iOS and tvOS apps.<br>Setting the Bundle ID<br>The default bundle ID in your Xcode project is a string formatted as a reverse-domain—for example, com.MyCompany.MyProductName. To create the default bundle ID, Xcode concatenates the organization identifier with the product name you entered when creating the project from a template, as described in Setting Properties When Creating Your Xcode Project. (Xcode replaces spaces in the product name to create the default bundle ID.) It may be sufficient to replace the organization identifier prefix in the bundle ID, or you can replace the entire bundle ID. For example, change the organization identifier prefix to match your organization domain name, or replace the entire bundle ID to match an explicit App ID.</p>
+<p>For tvOS apps that share the iTunes Connect app record of an iOS app (described in Creating a Universal Purchase (iOS, tvOS)), the tvOS app must have the same bundle ID as the iOS app.</p>
+<p>For watchOS apps, the embedded WatchKit app and WatchKit extension targets must have the same bundle ID prefix as the iOS target. The WatchKit app target must have the format [Bundle ID].watchkitapp and the WatchKit extension target must have the format [Bundle ID].watchkitextension. If you change the iOS app’s bundle ID, you must change the WatchKit app and WatchKit extension target’s bundle ID to match.</p>
+<p>For Mac apps, ensure that every bundle ID is unique within your app bundle. For example, if your app bundle includes a helper app, make sure that its bundle ID is different from your app’s bundle ID.</p>
+<p>Follow these steps to change the bundle ID prefix in the General pane in the project editor.</p>
+<h3 id="To-set-the-bundle-ID-prefix"><a href="#To-set-the-bundle-ID-prefix" class="headerlink" title="To set the bundle ID prefix"></a>To set the bundle ID prefix</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br><img src="/images/3_ios_app_target_pane_2x.png" alt="Triangle"></p>
+<p>Enter the bundle ID prefix in the Bundle Identifier field.<br>Alternatively, follow these steps to change the entire bundle ID in the Info pane in the project editor.</p>
+<h3 id="To-set-the-bundle-ID"><a href="#To-set-the-bundle-ID" class="headerlink" title="To set the bundle ID"></a>To set the bundle ID</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click Info.<br>Enter the bundle ID in the Value column of the “Bundle identifier” row.<br><img src="/images/3_ios_info_bundle_id_2x.png" alt="Bundle identifier"></p>
+<h3 id="Assigning-the-Xcode-Project-to-a-Team"><a href="#Assigning-the-Xcode-Project-to-a-Team" class="headerlink" title="Assigning the Xcode Project to a Team"></a>Assigning the Xcode Project to a Team</h3><p>Each Xcode project is associated with a single team. If you enroll as an individual, you’re considered a one-person team. The developer account is used to store the certificates, identifiers, and profiles needed to provision your app. All apps need to be code signed and provisioned to run on a device and use certain app services. Xcode creates these assets for you when needed, but you can avoid warnings and dialogs later if you set the team now.</p>
+<h3 id="To-assign-the-project-to-a-team"><a href="#To-assign-the-project-to-a-team" class="headerlink" title="To assign the project to a team"></a>To assign the project to a team</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Choose your team from the Team pop-up menu.<br>If you’re an individual, choose your name from the pop-up menu.<br>If you’re an organization, choose your organization name from the pop-up menu.<br><img src="/images/3_assignteam_ios_2x.png" alt="Organization"></p>
+<p>Xcode may attempt to create a team provisioning profile. For iOS, tvOS, and watchOS apps, Xcode creates a team provisioning profile if you have a device connected to your Mac or have previously registered a device. For Mac apps, Xcode registers your development Mac. To resolve issues related to the team provisioning profile, read Creating the Team Provisioning Profile.<br>If a team doesn’t appear in the Team pop-up menu, choose “Add an Account” and follow the steps described in Adding Your Apple ID Account in Xcode.<br>Choosing a Signing Identity (Mac)<br>You have the choice of submitting your Mac app to the store, signing it with a Developer ID certificate to distribute it outside of the store, signing it using an Apple ID that doesn’t belong to the Apple Developer Program, or not code signing it at all. If you select Mac App Store, you assign your Xcode project to a team and can enable app services, as described in Adding Capabilities. If you select Developer ID or Apple ID, the available capabilities are limited. If you select None, the Team pop-up menu is disabled and you don’t need to read this guide.</p>
+<h3 id="To-select-a-signing-identity"><a href="#To-select-a-signing-identity" class="headerlink" title="To select a signing identity"></a>To select a signing identity</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Select the type of signing identity you want to use.<br>The options change depending on the Apple ID you choose from the Team pop-up menu.</p>
+<p>If you want to submit your app to the store, choose the Apple ID that is a member of the Apple Developer Program from the Team pop-up menu, and select Mac App Store.<br>If you want to distribute your Mac app outside of the store, choose the Apple ID that is a member of the Apple Developer Program from the Team pop-up menu, and select Developer ID.<br>If you want to use an Apple ID that is not a member of the Apple Developer Program, choose the Apple ID from the Team pop-up menu, and select Apple ID.<br>If you don’t want to sign your app or use app services, select None.<br>The capabilities available to your app depends on the signing identity you choose, described in Supported Capabilities.<br><img src="/images/3_selectdistributionmethod_2x.png" alt="Select distribution method"></p>
+<h3 id="Read-Distributing-Apps-Outside-the-Mac-App-Store-for-other-steps-to-create-a-Developer-ID-signed-app"><a href="#Read-Distributing-Apps-Outside-the-Mac-App-Store-for-other-steps-to-create-a-Developer-ID-signed-app" class="headerlink" title="Read Distributing Apps Outside the Mac App Store for other steps to create a Developer ID-signed app."></a>Read Distributing Apps Outside the Mac App Store for other steps to create a Developer ID-signed app.</h3><h3 id="Creating-the-Team-Provisioning-Profile"><a href="#Creating-the-Team-Provisioning-Profile" class="headerlink" title="Creating the Team Provisioning Profile"></a>Creating the Team Provisioning Profile</h3><p>After you select a team, Xcode attempts to create a specialized development provisioning profile called a team provisioning profile that it manages for you. A team provisioning profile allows an app to be signed and run by all team members on all their devices. If Xcode fails to create the team provisioning profile, a warning and Fix Issue button appear below the Team pop-up menu.<br><img src="/images/3_tb_noprovisioningprofile_2x.png" alt="No Provisioning Profile"></p>
+<p>You can assist Xcode and avoid common problems by creating the team provisioning profile now. In most cases, you can just click Fix Issue below the warning message and Xcode performs these steps for you:</p>
+<h3 id="Creates-your-development-certificate"><a href="#Creates-your-development-certificate" class="headerlink" title="Creates your development certificate"></a>Creates your development certificate</h3><p>Xcode creates the development certificate for the team you selected from the Team pop-up menu.</p>
+<p>Registers the device chosen in the Scheme toolbar menu or your Mac<br>Xcode requires one or more registered devices in your account before it can create a team provisioning profile. For Mac apps, Xcode automatically registers the Mac that’s running Xcode. For iOS and tvOS apps, connect a device you want to use for development. For watchOS apps, connect an iPhone that is paired with an Apple Watch. If the device matches the deployment target, Xcode registers the device for you. If the device isn’t eligible because it doesn’t match the deployment target, upgrade the OS on the device or change the deployment target, as described in Setting Deployment Info.</p>
+<p>Creates an App ID that matches your app’s bundle ID and enables app services<br>Depending on your project’s configuration, Xcode may create either a wildcard App ID or an explicit App ID. Because Xcode uses the bundle ID to register an explicit App ID, the bundle ID also needs to be unique during development. To avoid an App ID registration error, enter a unique bundle ID, as described in Setting the Bundle ID.</p>
+<h3 id="Creates-a-team-provisioning-profile-containing-these-assets"><a href="#Creates-a-team-provisioning-profile-containing-these-assets" class="headerlink" title="Creates a team provisioning profile containing these assets"></a>Creates a team provisioning profile containing these assets</h3><p>Sets your project’s code signing build settings accordingly<br>After Xcode performs these steps, the warning message under the Team pop-up menu disappears.<br><img src="/images/3_tb_team_profile_created_2x.png" alt="Team Provisioning Profile"></p>
+<p>If dialogs or warnings appear, use the information to correct the problem and click Fix Issue again. If a “Your account already has a valid … certificate” dialog appears, choose one of these actions.</p>
+<p>If you previously exported your signing identity, as described in Exporting and Importing Certificates and Profiles, click Import Developer Profile and follow the instructions.<br>If you don’t have a backup of your signing identity, click Reset.<br>Xcode revokes your development certificate and recreates the signing identity for you.</p>
+<p>Setting the Application Category (Mac)<br>Set the category under which your Mac app will be listed on the Mac App Store. The category you select should match the category you later select in your iTunes Connect app record.</p>
+<h3 id="To-set-the-application-category"><a href="#To-set-the-application-category" class="headerlink" title="To set the application category"></a>To set the application category</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Choose the category from the Application Category pop-up menu.<br><img src="/images/3_selectdistributionmethod_2x.png" alt="Choose the Category"></p>
+<p>iOS, tvOS, and watchOS app categories are set in iTunes Connect only. For more details on app categories, read Best Practices in iTunes Connect Developer Guide.</p>
+<p>Setting the Version Number and Build String<br>It’s important to initial set, and later update, the version number and build string before uploading your app to iTunes Connect because these numbers are used by the store to identify the build.</p>
+<p>The version number is a two-period-separated list of positive integers, as in 4.5.2. The first integer represents a major revision, the second a minor revision, and the third a maintenance release. The version number is shown in the store and that version should match the version number you enter later in iTunes Connect. For details on possible values, see CFBundleShortVersionString in Information Property List Key Reference.</p>
+<p>The build string represents an iteration (released or unreleased) of the bundle and is also a two-period-separated list of positive integers, as in 1.2.3. For Mac apps, the user can click the version number in the About window to toggle between the version number and the build string. For details on possible values, see CFBundleVersion in Information Property List Key Reference.</p>
+<p>Important: Update the version number when you create a new app version in iTunes Connect. Update the build string before you upload a new build of your app to iTunes Connect. The number represented by the build string should be incremented. For iOS apps, iTunes will recognize that the build string changed and properly sync the new app version to the device. The version number and build string are also used to identify crash reports and .dSYM files for apps distributed through TestFlight or the store.<br>Set the version number and build string in the General pane in the project editor.</p>
+<h3 id="To-set-the-version-number-and-build-string"><a href="#To-set-the-version-number-and-build-string" class="headerlink" title="To set the version number and build string"></a>To set the version number and build string</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Important: For watchOS apps, the embedded WatchKit app and WatchKit extension must have the same version number and build string as the enclosing iOS app.<br>Click General and, if necessary, click the disclosure triangle next to Identity to reveal the settings.<br>Enter the version number in the Version field, and enter the build string in the Build field.<br><img src="/images/3_tb_team_profile_created_2x.png" alt="Team Profile"></p>
+<h3 id="Setting-Deployment-Info"><a href="#Setting-Deployment-Info" class="headerlink" title="Setting Deployment Info"></a>Setting Deployment Info</h3><p>The default deployment settings are sufficient for development, but it’s best to review these settings before you distribute your app. Some settings must match values you enter in iTunes Connect later. For iOS apps, the deployment settings appear as shown here:<br><img src="/images/3_deployment_info_2x.png" alt="Deployment"></p>
+<p>Setting the Deployment Target<br>The deployment target setting specifies the lowest operating system version that your app can run on. For example, the lowest available setting for iPad apps is iOS 4.3.</p>
+<p>There are several strategies for choosing the deployment target when developing your app. Each version of an OS includes features and capabilities not present in earlier versions. As new versions are published, some users may upgrade immediately, while other users may wait before moving to the latest version. You can target the latest version, taking full advantage of all the new features but limiting the app to only users running the latest version. Or you can target an earlier version, making your app available to more users but limiting the features you can use in the app. Another approach is to target an earlier version but use weak linking to determine at runtime whether later version features are available before using them.</p>
+<p>For details on weak linking, read Weak Linking and Apple Frameworks in SDK Compatibility Guide.</p>
+<h3 id="To-set-the-target-version"><a href="#To-set-the-target-version" class="headerlink" title="To set the target version"></a>To set the target version</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Deployment Info to reveal the settings.<br>Choose the version you want to target from the Deployment Target pop-up menu.<br><img src="/images/3_deployment_target_2x.png" alt="Deployment"></p>
+<p>Xcode sets the Minimum System Version key in the app’s information property list to the deployment target you choose. When you publish your app to the store, it uses this property value to indicate which versions your app supports.</p>
+<p>Note: The SDK version, not the deployment target, determines which features you can use in an app. If the SDK you’re using to build the app is more recent than the app’s deployment target, Xcode displays build warnings when it detects that your app is using a feature that’s unavailable in the deployment target.<br>Ensure that the symbols you use are available in the app’s runtime environment. To check for their availability, use the techniques described in SDK Compatibility Guide.<br>Setting the Target Devices (iOS, watchOS)<br>The Devices setting identifies the type of devices you want an app to run on. There are two device types: iPhone and iPad. The iPhone type includes iPhone and iPod touch devices. The iPad type includes all iPad and iPad mini devices.</p>
+<h3 id="To-set-the-target-devices"><a href="#To-set-the-target-devices" class="headerlink" title="To set the target devices"></a>To set the target devices</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to Deployment Info to reveal the settings.<br>From the Devices pop-up menu, choose iPhone, iPad, or Universal (to target both families).<br><img src="/images/3_target_devices_setting_2x.png" alt="Target Devices Settings"></p>
+<p>For more information on configuring your app for iPhone, iPad, or both device families, see Advanced App Tricks in App Programming Guide for iOS.</p>
+<h3 id="Adding-App-Icons-and-a-Launch-Screen-File"><a href="#Adding-App-Icons-and-a-Launch-Screen-File" class="headerlink" title="Adding App Icons and a Launch Screen File"></a>Adding App Icons and a Launch Screen File</h3><p>App icons and the launch screen file are stored in the app bundle, not uploaded as separate assets to iTunes Connect. The operating system uses these images and the launch screen file (a .xib file) in various locations on a device to represent your app. In general, artwork displayed by the operating system resides in the bundle, and artwork displayed by iTunes or the store is uploaded to iTunes Connect. Your app needs an app icon to represent it and pass validation tests.</p>
+<p>You use an asset catalog that manages the app icons for you or maintain individual image files yourself. If you create a new project, asset catalogs are used by default to store app icons and a launch screen file is used as a splash screen. For iOS 7 deployment targets, you can supply both a launch screen file and launch images. In iOS 8, the launch screen file is used, and in iOS 7, the launch images are used. If you have an older project, you can migrate from managing individual icon image files to an asset catalog. You can also add a launch screen file to an older Xcode project.</p>
+<p>If you prefer to manage your assets as individual image files, read Setting Individual App Icon and Launch Image Files. If you want to migrate to an asset catalog, read Migrating Your Images to an Asset Catalog. To learn more about creating and managing asset catalogs, go to Xcode Help.</p>
+<p>Preparing Your Artwork<br>For all artwork, keep the file size as small as possible for a positive purchase experience for your users.</p>
+<p>For iOS apps, see Icon and Image Sizes in iOS Human Interface Guidelines for the sizes of all required app icons, launch images, and other icons.</p>
+<p>For iOS and tvOS apps, a launch image matching the device resolution appears as soon as the user taps your app icon. Use screenshots to create your app’s launch images. To take advantage of Retina displays, provide high-resolution images for each device you support. For guidance on creating launch images, read Launch Images.</p>
+<p>For the required Mac app icons, see Creating Great Icons for Any Resolution in macOS Human Interface Guidelines. This table includes icon sizes that may be used on the Mac App Store. To create your app icon files, read Provide High-Resolution Versions of All App Graphics Resources in High Resolution Guidelines for OS X.</p>
+<p>For the specification of screenshots and other artwork that you upload later using iTunes Connect, read iTunes Connect App Properties in iTunes Connect Developer Guide.</p>
+<p>Adding App Icons to an Asset Catalog<br>Versions of your app icons are organized into image sets in an asset catalog. Xcode automatically creates image sets for the app’s target device—for example, both iPhone and iPad image sets appear if your iOS app’s target is universal.</p>
+<p>To add an app icon to an asset catalog</p>
+<p>In the project navigator, select the project and your target to display the project editor.<br>In the “App Icons and Launch Images” section of the General pane, click the arrow button to the right of the App Icons Source pop-up menu.<br><img src="/images/3_app_icon_arrow_2x.png" alt="App Icons"></p>
+<p>In the Finder, drag an app icon to the image well that matches its resolution in the project navigator.<br><img src="/images/3_add_app_icon_to_asset_catalog_2x.png" alt="App Icons Asset Catelog"></p>
+<h3 id="Creating-a-Launch-Screen-File"><a href="#Creating-a-Launch-Screen-File" class="headerlink" title="Creating a Launch Screen File"></a>Creating a Launch Screen File</h3><p>The launch screen file is displayed as a splash screen while your app is launching. It’s a single, atomic .xib file that uses size classes to support different device resolutions. It contains basic UIKit views, such as UIImageView and UILabel objects, and uses Auto Layout constraints. Xcode adds a default launch screen file, called LaunchScreen.xib, to your project.</p>
+<p>Follow these guidelines when creating a launch screen file:</p>
+<p>Use only UIKit classes.<br>Use a single root view that is a UIView or UIViewController object.<br>Don’t make any connections to your code (don’t add actions or outlets).<br>Don’t add UIWebView objects.<br>Don’t use any custom classes.<br>Don’t use runtime attributes.<br>You can add a launch screen file to an older Xcode project.</p>
+<h3 id="To-create-a-launch-screen-file-for-an-existing-project"><a href="#To-create-a-launch-screen-file-for-an-existing-project" class="headerlink" title="To create a launch screen file for an existing project"></a>To create a launch screen file for an existing project</h3><p>Choose File &gt; New &gt; File.<br>Under iOS, select User Interface.<br>Click Launch Screen and click Next.<br><img src="/images/3_create_launch_screen_file_2x.png" alt="Launch Screen File"></p>
+<p>Enter a filename in the Save As text field, and click Create.<br>To set the launch screen file</p>
+<p>If necessary, open the “App Icons and Launch Images” section of the General pane.<br>From the Launch Screen File pop-up menu, choose a launch screen file.<br>Adding Launch Images and Capturing Screenshots<br>Follow these steps to capture a screenshot of your app while your device is connected to your Mac. Although the screenshot of an iOS app includes the status bar as it looks when the screenshot is captured, iOS replaces it with the current status bar when your app launches.</p>
+<p>To capture a screenshot of your app running on a device</p>
+<p>Connect the device to your Mac.<br>Choose Window &gt; Devices, and select the device under Devices.<br>In the Device Information section, click Take Screenshot.<br><img src="/images/3_take_screenshot_2x.png" alt="Choose Window Devices"></p>
+<p>The screenshot appears on your desktop.<br>Note: For iOS 7 deployment targets, add an asset catalog for launch images, described in Migrating Your Images to an Asset Catalog. Capture screenshots to create the launch images and add them to the asset catalog, similar to adding app icons to an asset catalog, described in Adding App Icons to an Asset Catalog.<br>Setting Individual App Icon and Launch Image Files<br>If you don’t want to use an asset catalog, choose “Don’t use asset catalogs” from either the App Icons Source or Launch Images Source pop-up menu in the “App Icons and Launch Images” section of the General pane. If a Use Asset Catalog button appears, you are not using an asset catalog.</p>
+<p>Migrating Your Images to an Asset Catalog<br>If you have an older project, you can migrate your image files to an asset catalog that manages your app icons and launch images for you. Xcode moves the image files from the tables to the new asset catalog. You create a separate asset catalog for app icons and launch images, but the steps are identical.</p>
+<h3 id="To-migrate-to-an-asset-catalog"><a href="#To-migrate-to-an-asset-catalog" class="headerlink" title="To migrate to an asset catalog"></a>To migrate to an asset catalog</h3><p>In the project navigator, select the project and your target to display the project editor.<br>Click General and, if necessary, click the disclosure triangle next to “App Icons and Launch Images.”<br>Click the Use Asset Catalog button next to either App Icons Source or Launch Images Source.<br><img src="/images/3_use_asset_catalog_2x.png" alt="App Icons and Launch Images"></p>
+<p>In the dialog that appears, choose either Assets or New Asset Catalog from the pop-up menu, and click Migrate.<br><img src="/images/3_migrate_to_catalog_2x.png" alt="Migrate"></p>
+<p>To view the asset catalog, click the arrow button to the right of the App Icons Source or Launch Images Source pop-up menu.</p>
+<p>Adding Export Compliance Information to Your Project (Optional)</p>
+<p>You can optionally specify export compliance information for each build that you upload to iTunes Connect. If your app uses encryption and requires export compliance documentation, you upload the document and submit it for review using iTunes Connect, as described in Cryptography and U.S. Export Compliance in iTunes Connect Developer Guide. Once the document is approved, iTunes Connects will provide key-value pairs that you can add to the Info.plist file in your Xcode project. If you provide the export compliance information in the build, then you don’t need to provide this information later when you distribute your app using TestFlight or submit it to App Review.</p>
+<p>To add the export compliance keys to your Xcode project</p>
+<p>In the Project window, choose the target from the Project/Targets pop-up menu or in the Targets section of the second sidebar if it appears.<br>Click Info.<br>In the last row of the target properties table, click the Add button (+).<br>In the search field, enter the export compliance key followed by the Return character and set its value.<br>If your app is not using encryption, add the App Uses Non-Exempt Encryption key and set the value to NO.<br>If your app uses encryption, add the App Uses Non-Exempt Encryption key and set the value to YES.<br>If your app requires export compliance, add the App Encryption Export Compliance Code key and enter the value for this key provided by iTunes Connect.<br><img src="/images/8_add_export_compliance_keys_2x.png" alt="iTunes Connect"></p>
+<p>Note: In Xcode 7.2 and earlier, enter both the keys and values manually.<br>Setting the Copyright Key (Mac)</p>
+<p>Make sure that your information property list file contains a valid value for the Copyright key. For details on possible values, see NSHumanReadableCopyright in Information Property List Key Reference.</p>
+<p>To edit the copyright key in the information property list</p>
+<p>In Xcode, select the project in the project navigator.<br>Click the disclosure triangle next to the ProjectName folder to reveal its contents.<br>Click the disclosure triangle next to the Supporting Files subfolder to reveal its contents.<br>Select the ProjectName-Info.plist file.<br>The information property list is displayed to the right in a property list editor.<br><img src="/images/3_copyright_key_2x.png" alt="Copy Right"></p>
+<p>Double-click in the Value column and in the row of the Copyright key.<br>Enter a new value for the key.<br>For how to edit other cells in a property list, go to Xcode Help.</p>
+<h3 id="Verifying-Your-Build-Settings"><a href="#Verifying-Your-Build-Settings" class="headerlink" title="Verifying Your Build Settings"></a>Verifying Your Build Settings</h3><p>If you changed the default build settings, verify some of the settings before submitting your app to the store. You do this in the Build Settings pane of the project editor.</p>
+<p>To edit a build setting</p>
+<p>In the project editor, select the project or target whose build setting you want to edit.<br>At the top of the project editor, click Build Settings.<br><img src="/images/3_edit_build_settings_2x.png" alt="Build Settings"></p>
+<p>Locate the build setting in the left column, or enter the name of the build setting in the search field in the upper-right corner.<br>If some build settings don’t appear, click All.<br>Set the value for the build setting in the right column.<br>Setting Architectures for iOS Apps<br>The Architectures build setting identifies the architectures for which your app is built. An iOS device uses a set of architectures, which include armv7 and arm64. You have two options for specifying the value of this setting:</p>
+<p>Standard. Produces an app binary with a common architecture, compatible with all supported devices. This option generates the smallest app, but it may not be optimized to run at the best possible speed for all devices.<br>Other. Produces an app binary for a specified set of architectures.<br>If you select Other from the Architectures build-setting value list, click the Add button (+) to enter the custom device architecture names you support.</p>
+<p>Important: The store rejects a build that supports only armv7s. If armv7s is included in the Valid Architectures list, armv7 must also be included.</p>
+<h3 id="Setting-the-Base-SDK"><a href="#Setting-the-Base-SDK" class="headerlink" title="Setting the Base SDK"></a>Setting the Base SDK</h3><p>The Base SDK version number must be greater than or equal to the software version number on your development device; otherwise, Xcode can’t initiate a debugging session with the device. Set the Base SDK for your project and targets to the latest operating system, which is the default value. The Base SDK property is located in the Architectures area in the Build Settings pane. For iOS apps, set Base SDK to Latest iOS. For Mac apps, set Base SDK to Latest OS X. If you select another value, download and install the latest SDK version that’s greater than or equal to your device software version.</p>
+<p>To go to the Architectures area, select the project or target and click Build Settings. The Architectures area appears first in the Build Settings pane.<br><img src="/images/3_base_sdk_2x.png" alt="Architectures"></p>
+<h3 id="Setting-the-Debug-Information-Format"><a href="#Setting-the-Debug-Information-Format" class="headerlink" title="Setting the Debug Information Format"></a>Setting the Debug Information Format</h3><p>Set the Debug Information Format build setting to “DWARF with dSYM File.” This is required to symbolicate crash reports, as described in Analyzing Crash Reports.<br><img src="/images/3_debug_info_format_2x.png" alt="Debug Information"></p>
+<p>Recap</p>
+<p>In this chapter, you learned how to configure your Xcode project from a template, set the app’s identity information, and create a team provisioning profile for development. During development, refer to this chapter as needed. Later, use this chapter as a checklist for the settings that are required by the store.</p>
+<p><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/ConfiguringYourApp/ConfiguringYourApp.html#//apple_ref/doc/uid/TP40012582-CH28-SW1" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/ConfiguringYourApp/ConfiguringYourApp.html#//apple_ref/doc/uid/TP40012582-CH28-SW1</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/06/Distribution/" data-id="cj1662wug0003hj29ous9lvyw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Identifiers+Devices+Profiles" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/06/Identifiers+Devices+Profiles/" class="article-date">
+  <time datetime="2017-04-06T05:25:27.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/Identifiers+Devices+Profiles/">Maintaining Identifiers, Devices, and Profiles</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>You use your developer account to manage the identifiers, devices, and profiles used to code sign your app, enable it to launch on devices, and use certain app services. Xcode creates and manages these assets for you during development. When you’re ready to distribute your app for testing, you use your developer account to manage some of these assets yourself. For example, you can create custom development provisioning profiles, and bulk register devices used for testing. This chapter covers miscellaneous tasks you perform to maintain identifiers, devices, and profiles.</p>
+<p>For how to use Website Push IDs, read Notification Programming Guide for Websites.</p>
+<p>Important: A team agent can perform all the tasks in this chapter. If you are a team admin or team member, see Team Privileges for the tasks you can perform.</p>
+<h3 id="Registering-App-IDs"><a href="#Registering-App-IDs" class="headerlink" title="Registering App IDs"></a>Registering App IDs</h3><p>You can create a wildcard App ID that matches one or more apps or an explicit App ID that exactly matches your bundle ID. The app services enabled for an App ID serve as a whitelist of the services one or more apps may use. What services an app actually uses is configured in the Xcode project. You can enable app services when you create an App ID or modify these settings later. Game Center and In-App Purchase are enabled by default for an explicit App ID.</p>
+<p>In most cases, the wildcard and explicit App ID that Xcode creates for you when you add capabilities to your app, as described in Adding Capabilities, are sufficient to develop, test, and distribute your app. There can be only one explicit App ID per app, so if one already exists, Xcode uses it to create team provisioning profiles.</p>
+<h3 id="To-register-an-App-ID"><a href="#To-register-an-App-ID" class="headerlink" title="To register an App ID"></a>To register an App ID</h3><ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Identifiers, select App IDs.</li>
+<li>Click the Add button (+) in the upper-right corner.</li>
+<li><p>Enter a name or description for the App ID in the Description field.<br><img src="/images/13_createappID_2_2x.png" alt=""></p>
+</li>
+<li><p>To create an explicit App ID, select Explicit App ID and enter the app’s bundle ID in the Bundle ID field.<br>An explicit App ID exactly matches the bundle ID of an app you’re building—for example, com.example.ajohnson.adventure. An explicit App ID can’t contain an asterisk (*).<br><img src="/images/13_createappID_4_2x.png" alt=""></p>
+</li>
+</ol>
+<p>If you entered a bundle ID in the target’s Summary pane in Xcode, the App ID you enter here should match your bundle ID.</p>
+<ol>
+<li>To create a wildcard App ID, select Wildcard App ID and enter a bundle ID suffix in the Bundle ID field.</li>
+<li><p>Select the corresponding checkboxes to enable the app services you want to use.<br>A checkbox is disabled if the technology requires an explicit App ID and you’re creating a wildcard App ID, or the technology is enabled by default.<br><img src="/images/13_createappID_3_2x.png" alt=""></p>
+</li>
+<li><p>Click Continue.</p>
+</li>
+<li>Review the registration information, and click Register.</li>
+<li>Click Done.</li>
+</ol>
+<h3 id="Editing-App-IDs"><a href="#Editing-App-IDs" class="headerlink" title="Editing App IDs"></a>Editing App IDs</h3><p>You can edit an App ID directly using your developer account.</p>
+<p>To enable app services for an existing App ID</p>
+<ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Identifiers, select App IDs.</li>
+<li>Select the App ID you want to change, and click Edit.</li>
+<li><p>Select the corresponding checkboxes to enable the app services you want to allow.<br><img src="/images/13_enable_technologies_2x.png" alt=""></p>
+</li>
+<li><p>If a warning dialog appears, click OK.<br>Later, you’ll regenerate the provisioning profiles that use the App ID.</p>
+</li>
+<li><p>Click Done.<br>To fully enable app services that appear as configurable in your developer account, read Adding Capabilities.</p>
+</li>
+</ol>
+<h3 id="Deleting-App-IDs"><a href="#Deleting-App-IDs" class="headerlink" title="Deleting App IDs"></a>Deleting App IDs</h3><p>You can also remove App IDs when you no longer need them. However, you cannot delete an explicit App ID for an app you uploaded to iTunes Connect.</p>
+<p>To remove an App ID</p>
+<ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Identifiers, select App IDs.</li>
+<li><p>Select the App ID you want to delete, and click Edit.<br><img src="/images/13_deleting_appIDs_2x.png" alt=""></p>
+</li>
+<li><p>Scroll to the bottom of the page, and click Delete.</p>
+</li>
+<li>Read the dialog that appears, and click Delete.</li>
+</ol>
+<p>Provisioning profiles that contain a deleted App ID become invalid. You can change the App ID in the provisioning profiles, as described in Editing Provisioning Profiles in Your Developer Account, or delete them.</p>
+<h3 id="Locating-Your-Team-ID"><a href="#Locating-Your-Team-ID" class="headerlink" title="Locating Your Team ID"></a>Locating Your Team ID</h3><p>Occasionally, you may need to know your Team ID. For example, if you want to receive ownership of an app from another developer, the developer needs your Team ID to initiate the app transfer in iTunes Connect. The Team ID is a unique 10-character string generated by Apple that’s assigned to your team. You can find your Team ID using your developer account.</p>
+<p>To locate your Team ID</p>
+<ol>
+<li>Sign in to developer.apple.com/account, and click Membership in the sidebar.<br>Your Team ID appears in the Membership Information section under the team name.</li>
+</ol>
+<h3 id="Registering-Devices-Using-Your-Developer-Account"><a href="#Registering-Devices-Using-Your-Developer-Account" class="headerlink" title="Registering Devices Using Your Developer Account"></a>Registering Devices Using Your Developer Account</h3><p>In your developer account, you can register devices individually as needed or upload a file with information on multiple devices. Each year, you’re allowed to register a fixed number of devices. The maximum number of devices you can register is 100 device per product family per membership year. If you later disable a device, as described in Disabling and Enabling Devices Using Your Developer Account, it doesn’t decrease your count of registered devices.</p>
+<p>Locating Device IDs<br>You need the name and device ID for each device you want to register. There are several ways to obtain device IDs depending on whether you have Xcode installed.</p>
+<p>Locating Device IDs Using Xcode</p>
+<p>In Xcode, a team member can select a device in the Devices window to display the device ID.</p>
+<p>To locate a device ID using Xcode</p>
+<ol>
+<li>Choose Window &gt; Devices.</li>
+<li>For iOS and tvOS apps, connect a device to your Mac. For watchOS apps, connect an iPhone paired an Apple Watch.</li>
+<li>In the Devices window under Devices, select your device (your Mac is a device too).<br>The device identifier appears in the Identifier field.<br><img src="/images/11_deviceid_2x.png" alt=""></li>
+</ol>
+<h3 id="Locating-iOS-Device-IDs-Using-iTunes-iOS-tvOS"><a href="#Locating-iOS-Device-IDs-Using-iTunes-iOS-tvOS" class="headerlink" title="Locating iOS Device IDs Using iTunes (iOS, tvOS)"></a>Locating iOS Device IDs Using iTunes (iOS, tvOS)</h3><p>For iOS devices, you can also obtain a device ID using iTunes. For example, testers follow these steps to get their device ID using iTunes when they don’t have Xcode installed.</p>
+<p>To get an iOS device ID using iTunes</p>
+<ol>
+<li>Launch iTunes on your Mac.</li>
+<li>Connect your device to your Mac.</li>
+<li>In the upper-right corner, select the device.</li>
+<li><p>In the Summary pane, click the Serial Number label (for iOS, it appears under Capacity or Phone Number).<br>The label Serial Number changes to UDID and displays the device ID.<br><img src="/images/13_itunesgetdeviceid_2x.png" alt=""></p>
+</li>
+<li><p>Copy the device ID by Control-clicking the identifier and choosing Copy from the shortcut menu.</p>
+</li>
+<li>Paste the device ID in a document or an email message.<br>Locating Device IDs Using System Information (iOS, tvOS, Mac)</li>
+</ol>
+<p>You can get a device ID using the System Information app. For example, use this method if you want to register a Mac for testing that isn’t used for development.</p>
+<h3 id="To-locate-your-Mac-device-ID-using-System-Information"><a href="#To-locate-your-Mac-device-ID-using-System-Information" class="headerlink" title="To locate your Mac device ID using System Information"></a>To locate your Mac device ID using System Information</h3><ol>
+<li>Open the System Information app located in the /Applications/Utilities folder.</li>
+<li>Select Hardware in the left column.<br>The device ID, or hardware UUID, appears near the bottom of the Hardware Overview pane and is in the format XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.</li>
+</ol>
+<p>Also, use this method if you want to collect device IDs for iOS or Apple TV devices without using Xcode.</p>
+<h3 id="To-locate-a-connected-device-ID-using-System-Information"><a href="#To-locate-a-connected-device-ID-using-System-Information" class="headerlink" title="To locate a connected device ID using System Information"></a>To locate a connected device ID using System Information</h3><ol>
+<li>Connect the device to your Mac.</li>
+<li>Open the System Information app located in the /Applications/Utilities folder.</li>
+<li>Select USB under Hardware in the left column.</li>
+<li>On the right, select the connected device under USB Device Tree.<br>The device ID, or “Serial Number”, appears below.</li>
+</ol>
+<h3 id="Registering-Individual-Devices"><a href="#Registering-Individual-Devices" class="headerlink" title="Registering Individual Devices"></a>Registering Individual Devices</h3><p>To register a device using your developer account, you need to have the device name and device ID.</p>
+<p>To register a single device</p>
+<ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Devices, select All.</li>
+<li>Click the Add button (+) in the upper-right corner.</li>
+<li>Select Register Device.</li>
+<li><p>Enter a device name and the device ID (UDID).<br><img src="/images/13_ios_adddevice_onportal_2x.png" alt=""></p>
+</li>
+<li><p>Scroll to the bottom of the page, and click Continue.</p>
+</li>
+<li>Review the registration information, and click Register.</li>
+</ol>
+<h3 id="Registering-Multiple-Devices"><a href="#Registering-Multiple-Devices" class="headerlink" title="Registering Multiple Devices"></a>Registering Multiple Devices</h3><p>If you have many test devices, you can create a file containing the device names and device IDs and upload the entire file to your developer account. Your developer account supports these two file formats: a property list file with a .deviceids file extension and a plain text file. The file format you choose depends on whether you have access to the devices you want to register.</p>
+<h3 id="Creating-a-Property-List-Devices-File-Using-Apple-Configurator"><a href="#Creating-a-Property-List-Devices-File-Using-Apple-Configurator" class="headerlink" title="Creating a Property List Devices File Using Apple Configurator"></a>Creating a Property List Devices File Using Apple Configurator</h3><p>If you have access to the testing devices, you can use Apple Configurator to create a property list file that contains all your device names and device IDs. Download Apple Configurator from the Mac App Store.</p>
+<p>To create a property list devices file</p>
+<ol>
+<li>In Apple Configurator, choose Actions &gt; Export &gt; Info.</li>
+<li><p>Select “List of Device Identifiers for Developer Portal” and click Export.<br><img src="/images/13_apple_configurator_2x.png" alt=""></p>
+</li>
+<li><p>Choose a file name and location, and click Save.<br>The file has a .deviceids extension.</p>
+</li>
+</ol>
+<p>Creating a Plain Text Devices File</p>
+<p>If you don’t have access to the testing devices, you can create a .txt file containing the device names and device IDs you collect using another method. In this case, create a tab-delimited file with one device ID and one device name in each row. You can use the first row for your headers, because that row is ignored when parsed.</p>
+<h3 id="Uploading-the-Devices-File"><a href="#Uploading-the-Devices-File" class="headerlink" title="Uploading the Devices File"></a>Uploading the Devices File</h3><p>In your developer account, the steps to upload the devices file are the same for both file formats.</p>
+<h2 id="To-register-multiple-devices"><a href="#To-register-multiple-devices" class="headerlink" title="To register multiple devices"></a>To register multiple devices</h2><ol>
+<li>In Certificates, Identifiers &amp; Profiles, and for Mac apps, choose OS X from the pop-up menu on the left.</li>
+<li>Under Devices, select All.</li>
+<li>Click the Add button (+) in the upper-right corner.</li>
+<li>Select Register Multiple Devices.</li>
+<li><p>Click Choose File.<br><img src="/images/13_ios_addmultidevices_onportal_2x.png" alt=""></p>
+</li>
+<li><p>Select the file you want to upload, and click Choose.<br>Select either the .deviceids or .txt file you created earlier.</p>
+</li>
+<li><p>Click Continue.</p>
+</li>
+<li>Review the registration information, and click Submit.</li>
+</ol>
+<h3 id="Installing-Prereleases-on-Your-iOS-or-Apple-TV-Device"><a href="#Installing-Prereleases-on-Your-iOS-or-Apple-TV-Device" class="headerlink" title="Installing Prereleases on Your iOS or Apple TV Device"></a>Installing Prereleases on Your iOS or Apple TV Device</h3><p>Before you begin, download the prerelease you want to install on your device from Apple Developer.</p>
+<p>To install a prerelease on your development device</p>
+<ol>
+<li>Connect the device to your Mac.</li>
+<li><p>In the iTunes, select the device in the upper-left corner.<br>For Apple TV devices, if the device doesn’t appear in iTunes, put it in recovery mode.</p>
+</li>
+<li><p>In the Summary pane, Option-click the Restore iPhone/iPad/iPod or Restore Apple TV button.</p>
+</li>
+<li>Select the prerelease software restore image, and click Open to begin installation.</li>
+<li>When installation is complete, activate the device and restore its contents using iTunes.</li>
+</ol>
+<h3 id="Disabling-and-Enabling-Devices-Using-Your-Developer-Account"><a href="#Disabling-and-Enabling-Devices-Using-Your-Developer-Account" class="headerlink" title="Disabling and Enabling Devices Using Your Developer Account"></a>Disabling and Enabling Devices Using Your Developer Account</h3><p>You can disable and enable a device, but you can’t delete it from your developer account. You can disable a device you no longer use for development or testing. However, doing so invalidates provisioning profiles that contain the device and doesn’t increase your total count of devices for the year. You can also enable a device that you previously disabled.</p>
+<p>To disable or enable a device</p>
+<ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Devices, select All.</li>
+<li>Select the device you want to disable or enable.</li>
+<li><p>Click either Enable or Disable.<br><img src="/images/13_disable_device_2x.png" alt=""></p>
+</li>
+<li><p>In the dialog that appears, click either Enable or Disable again.</p>
+</li>
+</ol>
+<p>To regenerate invalid team provisioning profiles after disabling a device, read Downloading Provisioning Profiles in Xcode. To remove a disabled device from other provisioning profiles you manage, read Editing Provisioning Profiles in Your Developer Account.</p>
+<p>You can also enable a device using Xcode. For iOS apps, Xcode automatically registers a connected device that’s chosen from the Scheme toolbar menu in the project editor. For Mac apps, Xcode automatically registers the Mac that’s running Xcode. If the device or Mac was previously registered but is disabled, Xcode enables it.</p>
+<p>You may still run your app on a disabled device if it is in an older version of a provisioning profile that is installed on the device. To remove old versions of your provisioning profiles, read Verifying and Removing Provisioning Profiles on Devices.</p>
+<h3 id="Managing-Apps-on-Devices"><a href="#Managing-Apps-on-Devices" class="headerlink" title="Managing Apps on Devices"></a>Managing Apps on Devices</h3><p>In the Devices window, you can manage instances of your app installed on an iOS or tvOS device. Before you begin, connect the device to your Mac, choose Window &gt; Devices, and select the device under Devices. For iOS and tvOS apps, connect a device to your Mac. For watchOS apps, connect an iPhone paired to an Apple Watch.</p>
+<h2 id="Removing-Apps-from-Devices"><a href="#Removing-Apps-from-Devices" class="headerlink" title="Removing Apps from Devices"></a>Removing Apps from Devices</h2><p>To remove all data files associated with an app on a device, delete the app from the device. You might do this to test code that runs only when your app first launches. In Xcode, you can remove only the apps that you created. You can’t remove any of the system-installed or third-party apps from the device using Xcode.</p>
+<p>To remove an app from a device</p>
+<ol>
+<li>In the Installed Apps table, select an app and click the Delete button (–) below the table.</li>
+<li>In the dialog that appears, click the Delete button.</li>
+</ol>
+<h3 id="Viewing-Downloading-and-Replacing-App-Containers-on-Devices"><a href="#Viewing-Downloading-and-Replacing-App-Containers-on-Devices" class="headerlink" title="Viewing, Downloading, and Replacing App Containers on Devices"></a>Viewing, Downloading, and Replacing App Containers on Devices</h3><p>You can view the file structure of an app container on a device directly in Xcode but not the contents of the files.</p>
+<p>To view the contents of an app container</p>
+<ol>
+<li>Under Installed Apps, select the app from the list.</li>
+<li><p>From the Action menu (the gear icon to the right of the Delete button), choose Show Container.<br><img src="/images/13_devices_action_menu_2x.png" alt=""></p>
+</li>
+<li><p>Click Done.</p>
+</li>
+</ol>
+<p>To examine or modify the files in an app container, download it to your file system. Analyzing the contents of an app’s container may provide important information to help you diagnose problems or tune the app.</p>
+<h3 id="To-download-the-contents-of-an-app-container"><a href="#To-download-the-contents-of-an-app-container" class="headerlink" title="To download the contents of an app container"></a>To download the contents of an app container</h3><ol>
+<li>Under Installed Apps, select the app from the list.</li>
+<li>From the Action pop-up menu, choose Download Container.</li>
+<li>Enter a filename in the Save As text field, and click Save.<br>To test the app in a particular state, replace the app container on a device.</li>
+</ol>
+<h3 id="To-replace-an-app-container-on-a-device"><a href="#To-replace-an-app-container-on-a-device" class="headerlink" title="To replace an app container on a device"></a>To replace an app container on a device</h3><ol>
+<li>Under Installed Apps, select the app from the list.</li>
+<li>From the Action menu, choose Replace Container.</li>
+<li>Select a container from the File Picker and click Open.</li>
+</ol>
+<h3 id="Creating-Provisioning-Profiles-Using-Your-Developer-Account"><a href="#Creating-Provisioning-Profiles-Using-Your-Developer-Account" class="headerlink" title="Creating Provisioning Profiles Using Your Developer Account"></a>Creating Provisioning Profiles Using Your Developer Account</h3><p>You can create both development and distribution provisioning profiles yourself using your developer account.</p>
+<p>Because Xcode creates and manages team provisioning profiles for you, you only create a development provisioning profile if you want to restrict development of an app to specific team members and devices. Follow the steps in Creating Development Provisioning Profiles if you want to create your own development provisioning profile.</p>
+<p>Xcode creates an iOS ad hoc provisioning profile for you when you export an app archive and select the ad hoc deployment option, as described in Exporting Your App for Testing Outside the Store. To create an ad hoc provisioning profile directly in your developer account, read Creating Ad Hoc Provisioning Profiles (iOS, tvOS, watchOS).</p>
+<p>Similarly, Xcode creates a store provisioning profile for you when you submit your app to the store. To create a store provisioning profile directly in your developer account, read Creating Store Provisioning Profiles.</p>
+<p>After creating provisioning profiles, download provisioning profiles in Xcode, as described in Downloading Provisioning Profiles in Xcode. The provisioning profiles should appear in the Provisioning Profiles table in the view details dialog in Accounts preferences.</p>
+<h3 id="Creating-Development-Provisioning-Profiles"><a href="#Creating-Development-Provisioning-Profiles" class="headerlink" title="Creating Development Provisioning Profiles"></a>Creating Development Provisioning Profiles</h3><p>Before creating a development provisioning profile, verify that you have an App ID, one or more development certificates, and one or more devices. If you want to register your own App ID, read Registering App IDs. (You can also use one of the App IDs that Xcode manages for you.) If you need to create your development certificate, read Creating Signing Identities. If you need to register devices, read Registering Devices Using Your Developer Account.</p>
+<p>To create a development provisioning profile</p>
+<ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Provisioning Profiles, select All.</li>
+<li>Click the Add button (+) in the upper-right corner.</li>
+<li><p>Under Development, select the type of provisioning profile you want to create and click Continue.<br> For iOS and watchOS apps, select iOS App Development.<br> For tvOS apps, select tvOS App Development.<br> For Mac apps, select Mac App Development.<br><img src="/images/13_ios_createdevelopmentprofile_1_2x.png" alt=""></p>
+</li>
+<li><p>Select the App ID you want to use for development, and click Continue.</p>
+</li>
+<li>Select one or more development certificates, and click Continue.</li>
+<li>Select one or more devices, and click Continue.</li>
+<li>Enter a profile name, and click Generate.</li>
+<li>Click Done.</li>
+</ol>
+<h3 id="Creating-Ad-Hoc-Provisioning-Profiles-iOS-tvOS-watchOS"><a href="#Creating-Ad-Hoc-Provisioning-Profiles-iOS-tvOS-watchOS" class="headerlink" title="Creating Ad Hoc Provisioning Profiles (iOS, tvOS, watchOS)"></a>Creating Ad Hoc Provisioning Profiles (iOS, tvOS, watchOS)</h3><p>An ad hoc provisioning profile allows testers to run your app on their device without needing Xcode. To create an ad hoc provisioning profile, you select an App ID, a single distribution certificate, and multiple test devices.</p>
+<p>Note: Alternatively, you can create an ad hoc provisioning profile in Xcode by exporting your app, described in Exporting Your App for Testing (iOS, tvOS, watchOS).</p>
+<h1 id="To-create-an-ad-hoc-provisioning-profile"><a href="#To-create-an-ad-hoc-provisioning-profile" class="headerlink" title="To create an ad hoc provisioning profile"></a>To create an ad hoc provisioning profile</h1><ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Provisioning Profiles, select All.</li>
+<li>Click the Add button (+) in the upper-right corner.</li>
+<li><p>Select Ad Hoc or tvOS Ad Hoc as the distribution method, and click Continue.<br><img src="/images/6_ios_createdistributionprofile_2_2x.png" alt=""></p>
+</li>
+<li><p>Choose the App ID you used for development, which matches your bundle ID, from the App ID pop-up menu, and click Continue.<br> If you used a team provisioning profile during development and the menu contains only the XC Wildcard, select it. If the menu contains another Xcode-managed explicit App ID (it begins with “XC” followed by the bundle ID), select that App ID. If you created your own App ID, select that one.</p>
+</li>
+<li><p>Select the distribution certificate you want to use, and click Continue.<br> If you don’t have a distribution certificate, create one using Xcode, as described in Creating Signing Identities, before continuing.</p>
+</li>
+<li><p>Select the devices you want to use for testing, and click Continue.</p>
+</li>
+<li><p>Enter a profile name, and click Continue.<br><img src="/images/6_ios_createdistributionprofile_3_2x.png" alt=""></p>
+<p> Wait while your developer account generates the provisioning profile.</p>
+</li>
+<li>At the bottom of the page, Click Done.</li>
+</ol>
+<p>In Xcode, download the ad hoc provisioning profile, as described in Downloading Provisioning Profiles in Xcode. The ad hoc provisioning profile should now appear in the Provisioning Profiles table in the view details dialog in Accounts preferences.</p>
+<h3 id="Creating-Store-Provisioning-Profiles"><a href="#Creating-Store-Provisioning-Profiles" class="headerlink" title="Creating Store Provisioning Profiles"></a>Creating Store Provisioning Profiles</h3><p>Before uploading your app to the store, you provision it using a store provisioning profile. (For Mac apps that don’t enable any app services, you can code sign your app using just a distribution certificate.) You don’t select any devices to create a store provisioning profile.</p>
+<p>Note: Alternatively, you can create a store provisioning profile in Xcode by exporting or uploading your app, described in Exporting Your App for Testing (iOS, tvOS, watchOS), Exporting Your App for Testing (Mac), and Uploading Your App to iTunes Connect.</p>
+<h1 id="To-create-a-store-provisioning-profile"><a href="#To-create-a-store-provisioning-profile" class="headerlink" title="To create a store provisioning profile"></a>To create a store provisioning profile</h1><ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Provisioning Profiles, select All.</li>
+<li>Click the Add button (+) in the upper-right corner.</li>
+<li>Select the distribution method, and click Continue.<br> For iOS and watchOS apps, select App Store.<br> For tvOS apps, select tvOS App Store.<br> For Mac apps, select Mac App Store.</li>
+<li><p>Choose the App ID you used for development (the App ID that matches your bundle ID) from the App ID pop-up menu, and click Continue.<br> If you used a team provisioning profile during development and the menu contains only the Xcode Wildcard App ID, select it. If the menu contains an Xcode-managed explicit App ID (it begins with “Xcode” and contains your bundle ID), select that App ID. If you created your own App ID, select that one.</p>
+</li>
+<li><p>Select your distribution certificate, and click Continue.<br> A store provisioning profile contains a single distribution certificate.</p>
+</li>
+<li><p>Enter a profile name, and click Continue.<br> Wait while your developer account generates the provisioning profile.</p>
+</li>
+<li><p>At the bottom of the page, Click Done.</p>
+</li>
+</ol>
+<h3 id="Downloading-Provisioning-Profiles-in-Xcode"><a href="#Downloading-Provisioning-Profiles-in-Xcode" class="headerlink" title="Downloading Provisioning Profiles in Xcode"></a>Downloading Provisioning Profiles in Xcode</h3><p>Changes you make in your developer account aren’t automatically reflected in Xcode. For example, if you create or edit a provisioning profile in your developer account, download provisioning profiles in Xcode to get those changes. If you revoke a development certificate, download provisioning profiles to regenerate the team provisioning profiles managed by Xcode.</p>
+<h1 id="To-download-provisioning-profiles-in-Xcode"><a href="#To-download-provisioning-profiles-in-Xcode" class="headerlink" title="To download provisioning profiles in Xcode"></a>To download provisioning profiles in Xcode</h1><ol>
+<li>In the Xcode Preferences window, click Accounts.</li>
+<li><p>Select your team, and click View Details.<br><img src="/images/12_createdistributioncert_2x.png" alt=""></p>
+</li>
+<li><p>In the dialog that appears, click the “Download all” button in the lower-left corner under the Provisioning Profiles table.<br> Xcode updates the list of profiles in the Provisioning Profiles table.</p>
+</li>
+</ol>
+<h3 id="Using-Custom-Provisioning-Profiles"><a href="#Using-Custom-Provisioning-Profiles" class="headerlink" title="Using Custom Provisioning Profiles"></a>Using Custom Provisioning Profiles</h3><p>Occasionally, you may want to use your own custom development provisioning profile instead of the team provisioning profile that Xcode manages for you. For example, you might do this if you want to limit development of an app to a subset of developers or if you’re testing different app configurations. If so, create a development provisioning profile, as described in Creating Provisioning Profiles Using Your Developer Account, and set your code signing identity build setting to use the new profile.</p>
+<p>When you build the app, you code sign it with the signing identity matching the certificate contained in the provisioning profile you want to use. The possible values for the Code Signing Identity build setting pop-up menu are:</p>
+<pre><code>Don’t Code Sign. Don’t sign your app. Choosing this option disables entitlements including sandboxing.
+Automatic Profile Selector. Selects an identity that matches your developer or distribution certificate name.
+Identities without Provisioning Profiles. Selects a code signing identity that isn’t in a provisioning profile.
+Other. Selects a specific code signing identity. The code signing identities in your default keychain are listed by the name. Expired or otherwise invalid identities are dimmed and can’t be chosen.
+</code></pre><p>A menu item appears in the Code Signing Identity build setting pop-up menu for each provisioning profile to which your development certificate belongs. The default setting is the platform-specific development certificate that appears in the Automatic Profile Selector menu item, which matches your development certificate. For a description of each type of certificate that may appear in this menu, refer to Table 14-2.</p>
+<p>Before you begin, decide whether to set the Code Signing Identity build setting at the project or target level. For a single target, you can set this build setting at either the project or target level as long as you’re consistent. For multiple targets that use the same code signing identity, set this build setting at the project level. For multiple targets that use different code signing identities, you set this build setting for each individual target. For example, choosing the project level ensures that any helper apps inside of your project are code signed as well as the main app.</p>
+<p>Set the Provisioning Profile build setting to your development profile and the Code Signing Identity build setting to your development certificate.</p>
+<h1 id="To-set-the-code-signing-identity-to-your-development-certificate"><a href="#To-set-the-code-signing-identity-to-your-development-certificate" class="headerlink" title="To set the code signing identity to your development certificate"></a>To set the code signing identity to your development certificate</h1><ol>
+<li>In the Xcode project editor, select the target.<br>Important: If you want to sign multiple targets with the same code signing identity, select the project, not a target.</li>
+<li>Click Build Settings.</li>
+<li>In the Build Settings pane, click All and type code signing in the search field.</li>
+<li><p>From the Provisioning Profile pop-up menu, choose your development provisioning profile.<br> The default value is Automatic.</p>
+</li>
+<li><p>If necessary, from the Code Signing Identity pop-up menu, choose your development certificate.<br>For iOS apps, choose the certificate in the provisioning profile menu item that begins with the text “iPhone Developer:” followed by your name. For Mac apps, choose the certificate in the provisioning profile menu item that begins with the text “Mac Developer:” followed by your name.<br><img src="/images/12_buildsettings_2x.png" alt=""></p>
+</li>
+</ol>
+<p>Your app is code signed the next time you build it. You can build and run your Mac app by simply clicking the Run button. For an iOS app, follow the steps in Launching Your App on a Device (iOS, tvOS, watchOS) to sign your app and launch it on a device.</p>
+<p>To use the team provisioning profile again later, change the Provisioning Profile build setting to None. To learn more about Apple’s code signing technology, read Code Signing Guide.</p>
+<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>If the development provisioning profile doesn’t appear in the Provisioning Profile pop-up menu, download provisioning profiles, as described in Downloading Provisioning Profiles in Xcode. Then try to set the Provisioning Profile build settings again.</p>
+<p>If a code signing error occurs when you build the app, verify that the Code Signing Identity build setting is correct. Also, check whether the Code Signing Identity build setting is set at the project or target level (target settings override project settings). To troubleshoot the Code Signing Identity build setting, read Build and Code Signing Issues.</p>
+<h3 id="Migrating-to-Xcode-Managed-Provisioning-Profiles"><a href="#Migrating-to-Xcode-Managed-Provisioning-Profiles" class="headerlink" title="Migrating to Xcode-Managed Provisioning Profiles"></a>Migrating to Xcode-Managed Provisioning Profiles</h3><p>Xcode creates and updates code signing identities and provisioning profiles for you. However, if your project was created using Xcode 4 or earlier, you may need to set the Provisioning Profile build setting to Automatic to use this feature.</p>
+<h1 id="To-use-Xcode-managed-provisioning-profiles"><a href="#To-use-Xcode-managed-provisioning-profiles" class="headerlink" title="To use Xcode-managed provisioning profiles"></a>To use Xcode-managed provisioning profiles</h1><ol>
+<li>In the Xcode project editor, select the target.</li>
+<li>Click Build Settings.</li>
+<li>In the Build Settings pane, click All and type Code Signing in the search field.</li>
+<li>From the Provisioning Profile pop-up menu, choose Automatic.<br> Xcode sets the highest Code Signing Identity build setting to Don’t Code Sign, and the “Any … SDK” Code Signing Identity build settings to iOS Developer (for iOS apps) and Mac Developer (for Mac apps).</li>
+</ol>
+<p>If necessary, set the project-level Provisioning Profile build setting to Automatic. To troubleshoot provisioning profiles, read Provisioning Issues.</p>
+<h3 id="Editing-Provisioning-Profiles-in-Your-Developer-Account"><a href="#Editing-Provisioning-Profiles-in-Your-Developer-Account" class="headerlink" title="Editing Provisioning Profiles in Your Developer Account"></a>Editing Provisioning Profiles in Your Developer Account</h3><p>You don’t need to re-create provisioning profiles to edit them. You can change the name of a provisioning profile and other properties depending on the type of provisioning profile. For all types of provisioning profiles, you can change the App ID. For an iOS, tvOS, and watchOS app, you can add devices to an ad hoc provisioning profile. If you change a provisioning profile, remember to replace instances of the provisioning profile that you installed on devices.</p>
+<p>If you want to repair a provisioning profile because you re-created a certificate, follow the steps in Re-Creating Certificates and Updating Related Provisioning Profiles.</p>
+<p>Note: You can’t modify the team provisioning profile managed by Xcode.</p>
+<h1 id="To-edit-a-provisioning-profile"><a href="#To-edit-a-provisioning-profile" class="headerlink" title="To edit a provisioning profile"></a>To edit a provisioning profile</h1><ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Provisioning Profiles, select All, Development, or Distribution.</li>
+<li><p>Select the provisioning profile you want to modify, and click Edit.<br><img src="/images/13_tb_ios_modify_profile1_2x.png" alt=""></p>
+</li>
+<li><p>Make your changes to the provisioning profile, such as changing its name, adding certificates, or selecting a different set of devices.<br><img src="/images/13_tb_ios_modify_profile2_2x.png" alt=""></p>
+</li>
+<li><p>Click Generate.<br> After doing so, download provisioning profiles in Xcode, as described in Downloading Provisioning Profiles in Xcode.</p>
+</li>
+</ol>
+<h3 id="Renewing-Expired-Provisioning-Profiles"><a href="#Renewing-Expired-Provisioning-Profiles" class="headerlink" title="Renewing Expired Provisioning Profiles"></a>Renewing Expired Provisioning Profiles</h3><p>If a provisioning profile expires, the provisioning profile’s status displays Expired in your developer account. You renew an expired provisioning profile by editing and re-generating it, as described in Editing Provisioning Profiles in Your Developer Account. You don’t need to make any changes to the provisioning profile. Just scroll to the bottom of the Edit iOS Provisioning Profile or the Edit Mac Provisioning Profile page, and click Generate.</p>
+<p>If the expired provisioning profile is installed on your device, remove it, as described in Verifying and Removing Provisioning Profiles on Devices. If the provisioning profile is an ad hoc provisioning profile, re-sign and distribute your app using the regenerated provisioning profile, as described in Exporting Your App for Testing (iOS, tvOS, watchOS).</p>
+<p>Verifying and Removing Provisioning Profiles on Devices</p>
+<p>Use Xcode to verify if your provisioning profile is installed on a device or to remove expired provisioning profiles from a device.</p>
+<p>Note: You rarely install a provisioning profile yourself because when you launch an app on a device, iOS and OS X automatically install the embedded provisioning profile in the app’s bundle on the device.</p>
+<h1 id="To-verify-or-remove-a-provisioning-profile"><a href="#To-verify-or-remove-a-provisioning-profile" class="headerlink" title="To verify or remove a provisioning profile"></a>To verify or remove a provisioning profile</h1><ol>
+<li>For iOS and tvOS apps, connect the device to your Mac. For watchOS apps, connect the iPhone paired to an Apple Watch.</li>
+<li>Choose Window &gt; Devices, and select the device under Devices.</li>
+<li>At the bottom of the left column, click the Action button (the gear icon to the right of the Add button).</li>
+<li>Choose Show Provisioning Profiles from the pop-up menu.</li>
+<li><p>The provisioning profiles sheet appears.</p>
+<p> To remove a provisioning profile, select it from the list and click the Delete button (–) in the lower-left corner.<br><img src="/images/13_remove_profile_2x.png" alt=""></p>
+</li>
+<li><p>Click Done.</p>
+</li>
+</ol>
+<h4 id="Removing-Provisioning-Profiles-from-Your-Developer-Account"><a href="#Removing-Provisioning-Profiles-from-Your-Developer-Account" class="headerlink" title="Removing Provisioning Profiles from Your Developer Account"></a>Removing Provisioning Profiles from Your Developer Account</h4><p>Occasionally, you may need to remove a provisioning profile from your team.</p>
+<h1 id="To-remove-a-provisioning-profile-from-your-team"><a href="#To-remove-a-provisioning-profile-from-your-team" class="headerlink" title="To remove a provisioning profile from your team"></a>To remove a provisioning profile from your team</h1><ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Provisioning Profiles, select All.</li>
+<li>Select the provisioning profile you want to remove.</li>
+<li><p>Click Delete.<br><img src="/images/13_ios_delete_profile_2x.png" alt=""></p>
+</li>
+<li><p>In the dialog that appears, click Delete.</p>
+<p> After doing so, download provisioning profiles in Xcode, as described in Downloading Provisioning Profiles in Xcode, and remove the provisioning profile from your devices, as described in Verifying and Removing Provisioning Profiles on Devices.</p>
+</li>
+</ol>
+<h3 id="Downloading-Provisioning-Profiles-from-Your-Developer-Account"><a href="#Downloading-Provisioning-Profiles-from-Your-Developer-Account" class="headerlink" title="Downloading Provisioning Profiles from Your Developer Account"></a>Downloading Provisioning Profiles from Your Developer Account</h3><p>If necessary, you can download specific provisioning profiles directly from your developer account.</p>
+<h1 id="To-download-a-provisioning-profile"><a href="#To-download-a-provisioning-profile" class="headerlink" title="To download a provisioning profile"></a>To download a provisioning profile</h1><ol>
+<li>Sign in to developer.apple.com/account, and click Certificates, IDs &amp; Profiles.</li>
+<li>Under Provisioning Profiles, select All.</li>
+<li>Select the provisioning profile.</li>
+<li>Click Download.<br> A file with the provisioning profile name and the .mobileprovision extension appears in your Downloads folder.</li>
+</ol>
+<h3 id="Verifying-the-App-Binary-Entitlements"><a href="#Verifying-the-App-Binary-Entitlements" class="headerlink" title="Verifying the App Binary Entitlements"></a>Verifying the App Binary Entitlements</h3><p>Some entitlements (for example, App Sandbox entitlements) are set in your Xcode project and others are set in the provisioning profile. You can check if the signed app has the correct entitlements by examining the app’s signature and if discrepancies occur, by examining the embedded provisioning profile located in the app binary.</p>
+<h1 id="To-verify-the-entitlements-of-a-signed-app"><a href="#To-verify-the-entitlements-of-a-signed-app" class="headerlink" title="To verify the entitlements of a signed app"></a>To verify the entitlements of a signed app</h1><ol>
+<li>In Xcode, select your project in the project navigator.</li>
+<li>Click the disclosure triangle next to the project to reveal its contents.</li>
+<li>Click the disclosure triangle next to Products to reveal the app binary.</li>
+<li><p>Control-click the app binary file, and choose “Show in Finder” from the shortcut menu to go to the Xcode build location in the Finder.<br><img src="/images/13_locateprofileinbinary_1_2x.png" alt=""></p>
+</li>
+<li><p>Launch Terminal (located in /Applications/Utilities), and enter this text followed by a space character (do not press Return):<br> codesign -d –entitlements -</p>
+</li>
+<li>In the Finder, drag the app binary to Terminal.</li>
+<li><p>Press Return.</p>
+<p> For example, the output for an iOS app that is enabled for iCloud key-value storage contains the com.apple.developer.ubiquity-kvstore-identifier entitlement key. The output for a Mac app that is enabled for App Sandbox contains the com.apple.security.app-sandbox entitlement key.</p>
+<p> &lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br> &lt;!DOCTYPE plist PUBLIC “-//Apple//DTD PLIST 1.0//EN” “<a href="http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;" target="_blank" rel="external">http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</a></p>
+ <plist version="1.0"><br> <dict><br> <key>application-identifier</key><br> <string>G9B5P7QDV2.edu.self.HelloWorld</string><br> <key>com.apple.developer.pass-type-identifiers</key><br> <array><br> <string>G9B5P7QDV2.*</string><br> </array><br> <key>com.apple.developer.ubiquity-container-identifiers</key><br> <array><br> <string>G9B5P7QDV2.edu.self.HelloWorld</string><br> </array><br> <key>com.apple.developer.ubiquity-kvstore-identifier</key><br> <string>G9B5P7QDV2.edu.self.HelloWorld</string><br> <key>get-task-allow</key><br> <true><br> </true></dict><br> </plist>
+
+</li>
+</ol>
+<p>If the app’s entitlements are different than what you have configured, verify that the embedded provisioning profile is correct. First, you need to locate the embedded provisioning profile.</p>
+<h1 id="To-locate-the-embedded-provisioning-profile-in-the-app-binary"><a href="#To-locate-the-embedded-provisioning-profile-in-the-app-binary" class="headerlink" title="To locate the embedded provisioning profile in the app binary"></a>To locate the embedded provisioning profile in the app binary</h1><ol>
+<li>In Xcode, select your project in the project navigator.</li>
+<li>Click the disclosure triangle next to the project to reveal the contents.</li>
+<li>Click the disclosure triangle next to Products to reveal the app binary.</li>
+<li>Control-click the app binary file, and choose “Show in Finder” from the shortcut menu to go to the Xcode build location in the Finder.</li>
+<li>In the Finder, Control-click the app binary file, and choose Show Package Contents from the shortcut menu.<br> For iOS apps, a provisioning profile called embedded.mobileprovision appears in the Finder window. For Mac apps, the embedded file is called embedded.provisionprofile.<br><img src="/images/13_locateprofileinbinary_2_2x.png" alt=""></li>
+</ol>
+<h1 id="To-verify-the-entitlements-of-the-embedded-provisioning-profile"><a href="#To-verify-the-entitlements-of-the-embedded-provisioning-profile" class="headerlink" title="To verify the entitlements of the embedded provisioning profile"></a>To verify the entitlements of the embedded provisioning profile</h1><ol>
+<li>Launch Terminal (located in /Applications/Utilities), and enter this text (do not press Return):<br> security cms -D -i</li>
+<li><p>In the Finder, drag the provisioning profile in the app binary to Terminal.<br><img src="/images/13_verifyentitlementsinapp_1_2x.png" alt=""></p>
+</li>
+<li><p>Press Return.<br> This command outputs a property list in XML format.</p>
+</li>
+<li><p>Locate the Entitlements key in the output and verify that the application-identifier key has the correct entitlements.<br>For example, the following listing shows an iOS app that is enabled for data protection, Wallet, and iCloud. iCloud entitlements begin with the text com.apple.developer.ubiquity.<br> &lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br> &lt;!DOCTYPE plist PUBLIC “-//Apple//DTD PLIST 1.0//EN” “<a href="http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;" target="_blank" rel="external">http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</a><br> <plist version="1.0"><br> <key>Entitlements</key><br> <dict><br> <key>application-identifier</key><br> <string>G9B5P7QDV2.<em></em></string><br> <key>com.apple.developer.default-data-protection</key><br> <string>NSFileProtectionComplete</string><br> <key>com.apple.developer.pass-type-identifiers</key><br> <array><br> <string>G9B5P7QDV2.</string><br> </array><br> <key>com.apple.developer.ubiquity-container-identifiers</key><br> <array><br> <string>G9B5P7QDV2.<em></em></string><br> </array><br> <key>com.apple.developer.ubiquity-kvstore-identifier</key><br> <string>G9B5P7QDV2.</string><br> <key>get-task-allow</key><br> <true><br> <key>inter-app-audio</key><br> <true><br> <key>keychain-access-groups</key><br> <array><br> <string>G9B5P7QDV2.*</string><br> </array><br> </true></true></dict><br> </plist><br>See codesign and security for more ways to use these commands.</p>
+</li>
+</ol>
+<p>Recap</p>
+<p>In this chapter, you learned how to maintain your certificates and provisioning profiles in a valid state and remove assets that you no longer need. To resolve specific certificate and provisioning profile issues, read Troubleshooting.<br><a href="https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingProfiles/MaintainingProfiles.html" target="_blank" rel="external">https://developer.apple.com/library/content/documentation/IDEs/Conceptual/AppDistributionGuide/MaintainingProfiles/MaintainingProfiles.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/04/06/Identifiers+Devices+Profiles/" data-id="cj1662wul0006hj29zgph1wal" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-CaptuvoSDK" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/01/24/CaptuvoSDK/" class="article-date">
@@ -96,7 +628,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/24/CaptuvoSDK/" data-id="ciz74kwhj0001xx7itkptuq8s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/24/CaptuvoSDK/" data-id="cj1662wu80001hj299t2hp8co" class="article-share-link">Share</a>
       
       
     </footer>
@@ -142,7 +674,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/24/HybridWeb5/" data-id="ciz74kwho0002xx7ij54mu5vc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/24/HybridWeb5/" data-id="cj1662wud0002hj298ozf9pyf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -198,7 +730,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/24/Translate-Keyboard/" data-id="ciz74kwhu0003xx7i7dr5rk4k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/24/Translate-Keyboard/" data-id="cj1662wui0004hj29k16omf3x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -237,7 +769,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/24/UpgradeFirmware/" data-id="ciz74kwhw0004xx7i743bff7y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/24/UpgradeFirmware/" data-id="cj1662wuk0005hj29c2zwe0jx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -264,7 +796,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
     </div>
   </div>
 
@@ -277,6 +809,14 @@
       <ul>
         
           <li>
+            <a href="/2017/04/06/Distribution/">Configuring Your Xcode Project for Distribution</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/06/Identifiers+Devices+Profiles/">Maintaining Identifiers, Devices, and Profiles</a>
+          </li>
+        
+          <li>
             <a href="/2017/01/24/CaptuvoSDK/">CaptuvoSDK</a>
           </li>
         
@@ -286,10 +826,6 @@
         
           <li>
             <a href="/2017/01/24/Translate-Keyboard/">Translate-Keyboard</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/24/UpgradeFirmware/">Upgrade Firmware Tool for Captuvo</a>
           </li>
         
       </ul>
